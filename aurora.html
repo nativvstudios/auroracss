@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora CSS Framework - Component Demo</title>
+  
+  <!-- Import Aurora CSS Framework -->
+  <link rel="stylesheet" href="aurora.css">
+<link rel="stylesheet" href="aurora-layoutfix.css">
+
+
+  
+  <!-- Custom styles to enhance the demo -->
+  <style>
+    /* Fix for container sizing */
+    .aurora-container {
+      max-width: 90%;
+      width: 1400px;
+      padding: 0 2rem;
+      margin: 0 auto;
+    }
+
+    /* Fix for grid spacing */
+    :root {
+      --aurora-grid-gap: 2rem;
+    }
+
+    /* Fix for general spacing */
+    .component-section {
+      padding: 4rem 0;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Fix spacing in component demos */
+    .component-demo {
+      margin: 2rem 0;
+    }
+
+    /* Add space after sections */
+    .section-heading {
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--aurora-accent-color);
+    }
+
+    /* Create space for the fixed navbar */
+    body {
+      padding-top: 80px;
+    }
+
+    /* Fix modal */
+    .aurora-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--aurora-card-color);
+      border-radius: var(--aurora-border-radius);
+      box-shadow: var(--aurora-shadow-lg);
+      z-index: 1000;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .aurora-modal.aurora-modal-active {
+      display: block;
+      opacity: 1;
+    }
+
+    .aurora-modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .aurora-modal-title {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .aurora-modal-close {
+      background: none;
+      border: none;
+      color: var(--aurora-text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .aurora-modal-body {
+      padding: 1.5rem;
+    }
+
+    .aurora-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      z-index: 999;
+      display: none;
+    }
+
+    .aurora-modal-backdrop.active {
+      display: block;
+    }
+
+    /* Fix navbar */
+    .aurora-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      margin: 1rem;
+    }
+
+    /* Improve code blocks */
+    .code-block {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: var(--aurora-border-radius);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      border-left: 3px solid var(--aurora-accent-color);
+    }
+
+    /* Better button spacing */
+    .button-group .aurora-btn {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Improve color scheme display */
+    .color-swatch {
+      height: 100px;
+      border-radius: var(--aurora-border-radius);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      color: white;
+      font-weight: 500;
+      transition: transform var(--aurora-transition-fast);
+    }
+    
+    .color-swatch:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Fix component navigation */
+    .component-nav {
+      position: sticky;
+      top: 80px;
+      padding: 1rem;
+      border-radius: var(--aurora-border-radius);
+      background-color: var(--aurora-card-color);
+      backdrop-filter: blur(10px);
+    }
+
+    .component-nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .component-nav li {
+      margin-bottom: 0.5rem;
+    }
+
+    .component-nav a {
+      display: block;
+      padding: 0.5rem;
+      border-radius: var(--aurora-border-radius);
+      transition: background-color var(--aurora-transition-fast);
+    }
+
+    .component-nav a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Tooltip styles */
+    .aurora-tooltip-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 1010;
+    }
+
+    .aurora-tooltip {
+      position: absolute;
+      background-color: var(--aurora-card-color);
+      color: var(--aurora-text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: var(--aurora-border-radius);
+      font-size: 0.85rem;
+      max-width: 250px;
+      box-shadow: var(--aurora-shadow-md);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .aurora-tooltip.active {
+      opacity: 1;
+    }
+
+    /* Scroll to top button */
+    .aurora-scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 40px;
+      height: 40px;
+      background-color: var(--aurora-accent-color);
+      color: #000;
+      border-radius: var(--aurora-border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 90;
+      transform: translateY(20px);
+      box-shadow: var(--aurora-shadow-md);
+    }
+
+    .aurora-scroll-top.aurora-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Fix for mobile view */
+    @media (max-width: 768px) {
+      .aurora-container {
+        padding: 0 1rem;
+      }
+
+      .component-section {
+        padding: 2rem 0;
+      }
+
+      .aurora-navbar {
+        margin: 0.5rem;
+      }
+
+      .hero {
+        min-height: 40vh;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .component-nav {
+        position: relative;
+        top: 0;
+        margin-bottom: 2rem;
+      }
+    }
+    
+    /* Improved hero section */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 4rem;
+      padding: 2rem 0;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .hero-title {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--aurora-accent-color), var(--aurora-secondary-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Showcase card improvements */
+    .showcase-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .showcase-card .card-content {
+      flex: 1;
+    }
+  </style>
+</head>
+<body class="aurora-dark">
+  <!-- Grid Lines Background -->
+  <div class="aurora-grid-lines" id="gridLines"></div>
+  
+  <!-- Theme Toggle Button -->
+  <div class="aurora-toggle-container">
+    <button class="aurora-theme-toggle" id="themeToggle">🌓</button>
+  </div>
+  
+  <!-- Scroll to Top Button -->
+  <div class="aurora-scroll-top">↑</div>
+  
+  <!-- Navigation -->
+  <nav class="aurora-navbar">
+    <a href="#" class="aurora-navbar-brand">Aurora CSS</a>
+    <button class="aurora-navbar-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="aurora-navbar-menu">
+      <a href="#overview" class="aurora-nav-link">Overview</a>
+      <a href="#typography" class="aurora-nav-link">Typography</a>
+      <a href="#buttons" class="aurora-nav-link">Buttons</a>
+      <a href="#cards" class="aurora-nav-link">Cards</a>
+      <a href="#forms" class="aurora-nav-link">Forms</a>
+      <a href="#modals" class="aurora-nav-link">Modals</a>
+      <a href="#animations" class="aurora-nav-link">Animations</a>
+    </div>
+    <div class="aurora-navbar-end">
+      <a href="#" class="aurora-btn aurora-btn-sm aurora-btn-primary" data-aurora-tooltip="View Documentation">Docs</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="overview" data-aurora-animate="slide-right">
+    <div class="aurora-container">
+      <div class="hero-content aurora-glass-card">
+        <h1 class="hero-title">Aurora CSS Framework</h1>
+        <p class="hero-subtitle">A lightweight, modern CSS framework with glass morphism effects, fluid animations, and dark/light mode support.</p>
+        
+        <div class="aurora-mt-5">
+          <h3 id="typingDemo" class="aurora-text-accent"></h3>
+        </div>
+        
+        <div class="aurora-mt-5 button-group">
+          <button class="aurora-btn aurora-btn-primary aurora-btn-lg" data-aurora-modal="welcomeModal">Get Started</button>
+          <a href="#components" class="aurora-btn aurora-btn-outline aurora-btn-lg">Explore Components</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="aurora-container" id="components">
+    <div class="aurora-row">
+      <!-- Sidebar Navigation -->
+      <div class="aurora-col-12 aurora-col-md-3">
+        <div class="component-nav">
+          <h4>Components</h4>
+          <ul>
+            <li><a href="#colors">Color System</a></li>
+            <li><a href="#typography">Typography</a></li>
+            <li><a href="#buttons">Buttons</a></li>
+            <li><a href="#cards">Cards</a></li>
+            <li><a href="#forms">Forms</a></li>
+            <li><a href="#modals">Modals & Tooltips</a></li>
+            <li><a href="#animations">Animations</a></li>
+            <li><a href="#utilities">Utilities</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Main Content Area -->
+      <div class="aurora-col-12 aurora-col-md-9">
+        <!-- Color System -->
+        <section id="colors" class="component-section" data-aurora-animate="slide-right">
+          <h2 class="section-heading">Color System</h2>
+          <div class="aurora-glass-card">
+            <p>Aurora uses a carefully designed color system that works beautifully in both dark and light modes.</p>
+            
+            <div class="aurora-row aurora-mt-5">
+              <div class="aurora-col-4">
+                <div class="color-swatch" style="background-color: var(--aurora-accent-color);">
+                  Primary Accent
+                </div>
+              </div>
+              <div class="aurora-col-4">
+                <div class="color-swatch" style="background-color: var(--aurora-secondary-accent);">
+                  Secondary Accent
+                </div>
+              </div>
+              <div class="aurora-col-4">
+                <div class="color-swatch" style="background: linear-gradient(135deg, var(--aurora-accent-color), var(--aurora-secondary-accent));">
+                  Gradient
+                </div>
+              </div>
+            </div>
+            
+            <div class="aurora-row aurora-mt-3">
+              <div class="aurora-col-3">
+                <div class="color-swatch" style="background-color: var(--aurora-bg-color);">
+                  Background
+                </div>
+              </div>
+              <div class="aurora-col-3">
+                <div class="color-swatch" style="background-color: var(--aurora-card-color);">
+                  Card Background
+                </div>
+              </div>
+              <div class="aurora-col-3">
+                <div class="color-swatch" style="background-color: var(--aurora-text-primary);">
+                  Text Primary
+                </div>
+              </div>
+              <div class="aurora-col-3">
+                <div class="color-swatch" style="background-color: var(--aurora-text-secondary);">
+                  Text Secondary
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Typography Section -->
+        <section id="typography" class="component-section">
+          <h2 class="section-heading">Typography</h2>
+          
+          <div class="aurora-card">
+            <h3>Headings</h3>
+            <div class="component-demo">
+              <h1>Heading Level 1</h1>
+              <h2>Heading Level 2</h2>
+              <h3>Heading Level 3</h3>
+              <h4>Heading Level 4</h4>
+              <h5>Heading Level 5</h5>
+              <h6>Heading Level 6</h6>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Text Styles</h3>
+            <div class="component-demo">
+              <p>Regular paragraph text looks like this. Aurora uses a clean, readable font stack and proper spacing for optimal reading experience across devices. The default font stack includes system fonts for better performance.</p>
+              <p class="aurora-text-secondary">Secondary text styling adds visual hierarchy and is great for supporting content or less important information.</p>
+              <p class="aurora-text-accent">Accent text uses the primary accent color to highlight important information or calls to action within text content.</p>
+              
+              <div class="aurora-mt-4">
+                <span class="aurora-text-xs">Extra Small Text</span><br>
+                <span class="aurora-text-sm">Small Text</span><br>
+                <span class="aurora-text-base">Base Text Size</span><br>
+                <span class="aurora-text-lg">Large Text</span><br>
+                <span class="aurora-text-xl">Extra Large Text</span><br>
+                <span class="aurora-text-2xl">2XL Text</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Section Titles</h3>
+            <div class="component-demo">
+              <h4 class="aurora-section-title">Features</h4>
+              <h4 class="aurora-section-title">Our Services</h4>
+              <h4 class="aurora-section-title">Latest Projects</h4>
+            </div>
+          </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="component-section">
+          <h2 class="section-heading">Buttons</h2>
+          
+          <div class="aurora-card">
+            <h3>Button Styles</h3>
+            <div class="component-demo button-group">
+              <button class="aurora-btn">Default Button</button>
+              <button class="aurora-btn aurora-btn-primary">Primary Button</button>
+              <button class="aurora-btn aurora-btn-secondary">Secondary Button</button>
+              <button class="aurora-btn aurora-btn-outline">Outline Button</button>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Button Sizes</h3>
+            <div class="component-demo button-group">
+              <button class="aurora-btn aurora-btn-sm">Small Button</button>
+              <button class="aurora-btn">Regular Button</button>
+              <button class="aurora-btn aurora-btn-lg">Large Button</button>
+            </div>
+            
+            <div class="component-demo button-group">
+              <button class="aurora-btn aurora-btn-primary aurora-btn-sm">Small Primary</button>
+              <button class="aurora-btn aurora-btn-primary">Regular Primary</button>
+              <button class="aurora-btn aurora-btn-primary aurora-btn-lg">Large Primary</button>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Icon Buttons</h3>
+            <div class="component-demo button-group">
+              <button class="aurora-btn aurora-btn-icon">+</button>
+              <button class="aurora-btn aurora-btn-primary aurora-btn-icon">-</button>
+              <button class="aurora-btn aurora-btn-secondary aurora-btn-icon">✓</button>
+              <button class="aurora-btn aurora-btn-outline aurora-btn-icon">✕</button>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Button States</h3>
+            <div class="component-demo button-group">
+              <button class="aurora-btn">Normal</button>
+              <button class="aurora-btn" disabled>Disabled</button>
+              <button class="aurora-btn aurora-btn-primary">Normal Primary</button>
+              <button class="aurora-btn aurora-btn-primary" disabled>Disabled Primary</button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Cards Section -->
+        <section id="cards" class="component-section" data-aurora-animate="slide-left">
+          <h2 class="section-heading">Cards</h2>
+          
+          <div class="aurora-row">
+            <div class="aurora-col-12 aurora-col-md-4">
+              <div class="aurora-card aurora-card-hover showcase-card">
+                <div class="card-content">
+                  <div class="aurora-card-icon">✨</div>
+                  <h3 class="aurora-card-title">Standard Card</h3>
+                  <p class="aurora-card-desc">Basic card with hover effect. Great for presenting content in a clean, contained way.</p>
+                </div>
+                <button class="aurora-btn aurora-btn-sm aurora-mt-4">Learn More</button>
+              </div>
+            </div>
+            
+            <div class="aurora-col-12 aurora-col-md-4">
+              <div class="aurora-card aurora-card-secondary aurora-card-hover showcase-card">
+                <div class="card-content">
+                  <div class="aurora-card-icon">🚀</div>
+                  <h3 class="aurora-card-title">Secondary Card</h3>
+                  <p class="aurora-card-desc">Uses the secondary accent color for its accent line on hover.</p>
+                </div>
+                <button class="aurora-btn aurora-btn-sm aurora-btn-secondary aurora-mt-4">Details</button>
+              </div>
+            </div>
+            
+            <div class="aurora-col-12 aurora-col-md-4">
+              <div class="aurora-card aurora-card-dual aurora-card-hover showcase-card">
+                <div class="card-content">
+                  <div class="aurora-card-icon">🔮</div>
+                  <h3 class="aurora-card-title">Dual Accent Card</h3>
+                  <p class="aurora-card-desc">Features a gradient using both accent colors for a more vibrant look.</p>
+                </div>
+                <button class="aurora-btn aurora-btn-sm aurora-btn-outline aurora-mt-4">View</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="aurora-glass-card aurora-mt-5">
+            <h3 class="aurora-card-title">Glass Card</h3>
+            <p class="aurora-card-desc">The glass card features a beautiful blur effect that works well as a container for important content or as a highlight section.</p>
+            <p class="aurora-mt-3">Glass morphism is a modern design trend that gives the appearance of frosted glass, adding depth to your interfaces while maintaining readability.</p>
+            <button class="aurora-btn aurora-btn-primary aurora-mt-4">Explore</button>
+          </div>
+        </section>
+        
+        <!-- Forms Section -->
+        <section id="forms" class="component-section">
+          <h2 class="section-heading">Forms</h2>
+          
+          <div class="aurora-glass-card" data-aurora-animate="slide-left">
+            <h3>Form Controls</h3>
+            
+            <form class="aurora-form aurora-mt-5">
+              <div class="aurora-row">
+                <div class="aurora-col-12 aurora-col-md-6">
+                  <div class="aurora-form-group">
+                    <label class="aurora-label" for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="aurora-input" placeholder="Enter first name">
+                  </div>
+                </div>
+                
+                <div class="aurora-col-12 aurora-col-md-6">
+                  <div class="aurora-form-group">
+                    <label class="aurora-label" for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="aurora-input" placeholder="Enter last name">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="aurora-form-group">
+                <label class="aurora-label" for="emailAddress">Email Address</label>
+                <input type="email" id="emailAddress" class="aurora-input" placeholder="Enter email address">
+              </div>
+              
+              <div class="aurora-form-group">
+                <label class="aurora-label" for="userSelect">User Type</label>
+                <select id="userSelect" class="aurora-select">
+                  <option value="">Select user type</option>
+                  <option value="designer">Designer</option>
+                  <option value="developer">Developer</option>
+                  <option value="manager">Project Manager</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="aurora-form-group">
+                <label class="aurora-label" for="userMessage">Message</label>
+                <textarea id="userMessage" class="aurora-textarea" placeholder="Enter your message"></textarea>
+              </div>
+              
+              <div class="aurora-form-check">
+                <input type="checkbox" id="termsCheck" class="aurora-checkbox">
+                <label for="termsCheck" class="aurora-check-label">I agree to the terms and conditions</label>
+              </div>
+              
+              <div class="aurora-mt-4">
+                <p class="aurora-label">Notification Preferences</p>
+                <div class="aurora-form-check">
+                  <input type="radio" id="notifAll" name="notifications" class="aurora-radio">
+                  <label for="notifAll" class="aurora-check-label">All notifications</label>
+                </div>
+                
+                <div class="aurora-form-check">
+                  <input type="radio" id="notifImportant" name="notifications" class="aurora-radio">
+                  <label for="notifImportant" class="aurora-check-label">Important only</label>
+                </div>
+                
+                <div class="aurora-form-check">
+                  <input type="radio" id="notifNone" name="notifications" class="aurora-radio">
+                  <label for="notifNone" class="aurora-check-label">No notifications</label>
+                </div>
+              </div>
+              
+              <div class="aurora-mt-5 button-group">
+                <button type="submit" class="aurora-btn aurora-btn-primary">Submit Form</button>
+                <button type="reset" class="aurora-btn">Reset</button>
+              </div>
+            </form>
+          </div>
+        </section>
+        
+        <!-- Modals Section -->
+        <section id="modals" class="component-section">
+          <h2 class="section-heading">Modals & Tooltips</h2>
+          
+          <div class="aurora-card" data-aurora-animate="slide-right">
+            <h3>Modal Dialogs</h3>
+            <p>Modals are useful for focused user interactions without leaving the current page.</p>
+            
+            <div class="aurora-mt-4 button-group">
+              <button class="aurora-btn aurora-btn-primary" data-aurora-modal="basicModal">Basic Modal</button>
+              <button class="aurora-btn aurora-btn-secondary" data-aurora-modal="formModal">Form Modal</button>
+              <button class="aurora-btn aurora-btn-outline" data-aurora-modal="imageModal">Image Modal</button>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Tooltips</h3>
+            <p>Tooltips provide additional information in a non-intrusive way.</p>
+            
+            <div class="aurora-mt-4 button-group">
+              <button class="aurora-btn" data-aurora-tooltip="This is a tooltip on top">Top Tooltip</button>
+              <button class="aurora-btn" data-aurora-tooltip="This appears below the element" data-aurora-tooltip-position="bottom">Bottom Tooltip</button>
+              <button class="aurora-btn" data-aurora-tooltip="This appears to the left" data-aurora-tooltip-position="left">Left Tooltip</button>
+              <button class="aurora-btn" data-aurora-tooltip="This appears to the right" data-aurora-tooltip-position="right">Right Tooltip</button>
+              <button class="aurora-btn" data-aurora-tooltip="This follows your cursor" data-aurora-tooltip-position="follow">Follow Cursor</button>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Animations Section -->
+        <section id="animations" class="component-section">
+          <h2 class="section-heading">Animations</h2>
+          
+          <div class="aurora-card" data-aurora-animate="slide-left">
+            <h3>Scroll Animations</h3>
+            <p>Elements animate as they enter the viewport. Scroll to see them in action.</p>
+            
+            <div class="aurora-row aurora-mt-4">
+              <div class="aurora-col-12 aurora-col-md-3">
+                <div class="aurora-card" data-aurora-animate="fade">
+                  <h4>Fade In</h4>
+                  <p class="aurora-text-secondary">This element fades in when scrolled into view.</p>
+                </div>
+              </div>
+              
+              <div class="aurora-col-12 aurora-col-md-3">
+                <div class="aurora-card" data-aurora-animate="slide-up">
+                  <h4>Slide Up</h4>
+                  <p class="aurora-text-secondary">This element slides up when scrolled into view.</p>
+                </div>
+              </div>
+              
+              <div class="aurora-col-12 aurora-col-md-3">
+                <div class="aurora-card" data-aurora-animate="slide-left">
+                  <h4>Slide Left</h4>
+                  <p class="aurora-text-secondary">This element slides in from the right.</p>
+                </div>
+              </div>
+              
+              <div class="aurora-col-12 aurora-col-md-3">
+                <div class="aurora-card" data-aurora-animate="slide-right">
+                  <h4>Slide Right</h4>
+                  <p class="aurora-text-secondary">This element slides in from the left.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Parallax Effects</h3>
+            <p>Move your mouse over this section to see the parallax effect in action.</p>
+            
+            <div style="height: 200px; position: relative; margin-top: 2rem">
+              <div class="aurora-parallax" data-aurora-depth="0.05" style="position: absolute; top: 40px; left: 100px; width: 80px; height: 80px; background: var(--aurora-accent-color); border-radius: 50%;"></div>
+              <div class="aurora-parallax" data-aurora-depth="0.1" style="position: absolute; top: 90px; left: 300px; width: 60px; height: 60px; background: var(--aurora-secondary-accent); border-radius: 50%;"></div>
+              <div class="aurora-parallax" data-aurora-depth="0.15" style="position: absolute; top: 60px; left: 500px; width: 40px; height: 40px; background: linear-gradient(135deg, var(--aurora-accent-color), var(--aurora-secondary-accent)); border-radius: 50%;"></div>
+            </div>
+          </div>
+          
+          <div class="aurora-card aurora-mt-5">
+            <h3>Typing Animation</h3>
+            <p>Aurora includes a smooth typing animation effect.</p>
+            
+            <div class="aurora-mt-4">
+              <h4 id="typingExample"></h4>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Utilities Section -->
+        <section id="utilities" class="component-section">
+          <h2 class="section-heading">Utilities</h2>
+          
+          <div class="aurora-glass-card">
+            <h3>Grid System</h3>
+            <p>Aurora includes a responsive 12-column grid system.</p>
+            
+            <div class="aurora-mt-4" style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--aurora-border-radius);">
+              <div class="aurora-row">
+                <div class="aurora-col-4">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 4</div>
+                </div>
+                <div class="aurora-col-4">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 4</div>
+                </div>
+                <div class="aurora-col-4">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 4</div>
+                </div>
+              </div>
+              
+              <div class="aurora-row aurora-mt-3">
+                <div class="aurora-col-6">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 6</div>
+                </div>
+                <div class="aurora-col-6">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 6</div>
+                </div>
+              </div>
+              
+              <div class="aurora-row aurora-mt-3">
+                <div class="aurora-col-3">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 3</div>
+                </div>
+                <div class="aurora-col-9">
+                  <div style="background: rgba(78, 204, 163, 0.2); padding: 1rem; border: 1px solid var(--aurora-accent-color); border-radius: var(--aurora-border-radius); text-align: center;">Column 9</div>
+                </div>
+              </div>
+            </div>
+            
+            <h3 class="aurora-mt-5">Spacing Utilities</h3>
+            <p>Aurora provides utility classes for margin and padding.</p>
+            
+            <div class="code-block aurora-mt-4">
+              /* Margin utilities */
+              .aurora-m-0 { margin: 0; }
+              .aurora-m-1 { margin: 0.25rem; }
+              .aurora-m-2 { margin: 0.5rem; }
+              
+              /* Padding utilities */
+              .aurora-p-0 { padding: 0; }
+              .aurora-p-1 { padding: 0.25rem; }
+              .aurora-p-2 { padding: 0.5rem; }
+            </div>
+            
+            <div class="component-demo aurora-mt-5">
+              <div class="aurora-flex aurora-justify-between" style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--aurora-border-radius);">
+                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 1</div>
+                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 2</div>
+                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 3</div>
+              </div>
+            </div>
+            
+            <h3 class="aurora-mt-5">Text Utilities</h3>
+            <p>Quickly style your text with Aurora's text utilities.</p>
+            
+            <div class="aurora-mt-4">
+              <p class="aurora-text-left">Left aligned text</p>
+              <p class="aurora-text-center">Center aligned text</p>
+              <p class="aurora-text-right">Right aligned text</p>
+              <p class="aurora-uppercase">Uppercase text</p>
+              <p class="aurora-font-bold">Bold text</p>
+              <p class="aurora-tracking-wider">Wide letter spacing</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="aurora-footer">
+    <div class="aurora-container">
+      <div class="aurora-row">
+        <div class="aurora-col-12 aurora-col-md-6">
+          <h4>Aurora CSS Framework</h4>
+          <p class="aurora-text-secondary aurora-mt-2">A lightweight CSS framework for modern web interfaces with glass morphism effects, fluid animations, and dark/light mode support.</p>
+        </div>
+        <div class="aurora-col-12 aurora-col-md-6">
+          <div class="aurora-flex aurora-justify-end">
+            <button class="aurora-btn aurora-btn-outline aurora-btn-sm">GitHub</button>
+            <button class="aurora-btn aurora-btn-outline aurora-btn-sm aurora-ml-2">Documentation</button>
+            <button class="aurora-btn aurora-btn-outline aurora-btn-sm aurora-ml-2">Download</button>
+          </div>
+          <p class="aurora-text-secondary aurora-mt-4 aurora-text-right">Version 1.0.0 • Made with ❤️ by 🤖</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Modals -->
+  <!-- Welcome Modal -->
+  <div class="aurora-modal" id="welcomeModal">
+    <div class="aurora-modal-header">
+      <h3 class="aurora-modal-title">Welcome to Aurora CSS</h3>
+      <button class="aurora-modal-close">&times;</button>
+    </div>
+    <div class="aurora-modal-body">
+      <p>Thank you for checking out the Aurora CSS Framework!</p>
+      <p class="aurora-mt-3">This modern CSS framework is designed to help you build beautiful, responsive interfaces with minimal effort. The framework includes:</p>
+      <ul class="aurora-mt-2">
+        <li>Glass morphism effects</li>
+        <li>Dark and light mode support</li>
+        <li>Responsive grid system</li>
+        <li>Beautiful animations</li>
+        <li>Interactive components</li>
+      </ul>
+      <div class="aurora-mt-4">
+        <button class="aurora-btn aurora-btn-primary aurora-modal-close">Get Started</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Basic Modal -->
+  <div class="aurora-modal" id="basicModal">
+    <div class="aurora-modal-header">
+      <h3 class="aurora-modal-title">Basic Modal</h3>
+      <button class="aurora-modal-close">&times;</button>
+    </div>
+    <div class="aurora-modal-body">
+      <p>This is a simple modal dialog example using the Aurora CSS Framework.</p>
+      <p class="aurora-mt-3">Modals are great for getting user attention without navigating away from the current page.</p>
+      <div class="aurora-mt-4">
+        <button class="aurora-btn aurora-btn-primary aurora-modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Form Modal -->
+  <div class="aurora-modal" id="formModal">
+    <div class="aurora-modal-header">
+      <h3 class="aurora-modal-title">Contact Form</h3>
+      <button class="aurora-modal-close">&times;</button>
+    </div>
+    <div class="aurora-modal-body">
+      <p>Please fill out the form below to get in touch with us.</p>
+      
+      <form class="aurora-form aurora-mt-4">
+        <div class="aurora-form-group">
+          <label class="aurora-label" for="modalName">Name</label>
+          <input type="text" id="modalName" class="aurora-input" placeholder="Enter your name">
+        </div>
+        
+        <div class="aurora-form-group">
+          <label class="aurora-label" for="modalEmail">Email</label>
+          <input type="email" id="modalEmail" class="aurora-input" placeholder="Enter your email">
+        </div>
+        
+        <div class="aurora-form-group">
+          <label class="aurora-label" for="modalMessage">Message</label>
+          <textarea id="modalMessage" class="aurora-textarea" placeholder="Enter your message"></textarea>
+        </div>
+        
+        <div class="aurora-mt-4">
+          <button type="submit" class="aurora-btn aurora-btn-primary">Submit</button>
+          <button type="button" class="aurora-btn aurora-modal-close">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Image Modal -->
+  <div class="aurora-modal" id="imageModal">
+    <div class="aurora-modal-header">
+      <h3 class="aurora-modal-title">Aurora Preview</h3>
+      <button class="aurora-modal-close">&times;</button>
+    </div>
+    <div class="aurora-modal-body">
+      <div style="background: linear-gradient(135deg, var(--aurora-accent-color), var(--aurora-secondary-accent)); height: 200px; border-radius: var(--aurora-border-radius); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 500;">
+        Aurora CSS Framework
+      </div>
+      <p class="aurora-mt-3">The framework is named after the Aurora Borealis (Northern Lights), inspired by its beautiful colors and fluid, dynamic nature.</p>
+      <div class="aurora-mt-4">
+        <button class="aurora-btn aurora-btn-primary aurora-modal-close">Close</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Backdrop -->
+  <div class="aurora-modal-backdrop"></div>
+  
+  <!-- Import Aurora JS -->
+  <script src="aurora.js"></script>
+  
+  <!-- Initialize Components -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all Aurora components
+      Aurora.init({
+        // Configure components individually
+        themeToggle: {
+          defaultTheme: 'dark'
+        },
+        scrollAnimations: {
+          threshold: 0.2
+        },
+        tooltips: {
+          delay: 200
+        }
+      });
+      
+      // Initialize typing animation for the hero
+      Aurora.initTyping('typingDemo', [
+        'Building beautiful interfaces',
+        'Creating responsive designs',
+        'Crafting seamless experiences',
+        'Developing modern websites'
+      ]);
+      
+      // Initialize another typing animation for the example
+      Aurora.initTyping('typingExample', [
+        'Aurora makes typing animations easy',
+        'Just initialize with an element ID',
+        'And an array of text strings',
+        'Perfect for landing pages!'
+      ], {
+        typeSpeed: 80,
+        eraseSpeed: 40,
+        newTextDelay: 1500
+      });
+      
+      // Grid lines initialization
+      Aurora.initGridLines({
+        horizontalLines: 6,
+        verticalLines: 8
+      });
+      
+      // Initialize highlight effects
+      Aurora.initHighlightEffects({
+        setPrimaryColor: 'var(--aurora-accent-color)',
+        setSecondaryColor: 'var(--aurora-secondary-accent)'
+      });
+      
+      // Ensure all modals work properly
+      const modalButtons = document.querySelectorAll('[data-aurora-modal]');
+      modalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-aurora-modal');
+          // Manually trigger modal open if needed
+          const modalController = Aurora.initModal();
+          modalController.open(modalId);
+        });
+      });
+    });
+  </script>
+    <script src="aurora-animationfix.js"></script>
+
+</body>
+</html>
