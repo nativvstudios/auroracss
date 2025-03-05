@@ -6,7 +6,7 @@
 A lightweight, modern CSS framework focused on creating elegant, responsive interfaces with glass morphism effects, fluid animations, and dark/light mode support.
 
 <p align="center">
-  <img src="aurora-preview.png" alt="Aurora CSS Framework Preview" width="720">
+  <img src="showcase.gif" alt="Aurora CSS Framework Preview" width="720">
 </p>
 
 ## ✨ Features
