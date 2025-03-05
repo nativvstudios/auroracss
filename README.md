@@ -21,25 +21,8 @@ A lightweight, modern CSS framework focused on creating elegant, responsive inte
 
 ## 📦 Installation
 
-### 1. Via CDN (Recommended)
+### 1. Clone Repo (Recommended)
 
-```html
-<!-- CSS -->
-<link rel="stylesheet" href="https://cdn.example.com/aurora/aurora.css">
-
-<!-- JavaScript (Optional) -->
-<script src="https://cdn.example.com/aurora/aurora.js"></script>
-```
-
-### 2. Download
-
-[Download the latest release](https://github.com/yourusername/aurora-css/releases/latest)
-
-### 3. NPM
-
-```bash
-npm install aurora-css-framework
-```
 
 ## 🚀 Quick Start
 
