@@ -9,6 +9,11 @@ A lightweight, modern CSS framework focused on creating elegant, responsive inte
   <img src="showcase.gif" alt="Aurora CSS Framework Preview" width="720">
 </p>
 
+<p align="center">
+  <img src="screenshot.png" alt="Aurora CSS Framework Preview" width="720">
+</p>
+
+
 ## ✨ Features
 
 - **🌓 Dark & Light Themes** - Seamless theme switching with persistent user preferences
