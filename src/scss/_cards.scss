@@ -1,0 +1,135 @@
+// Aurora Framework Cards
+
+// Base card
+.aurora-card {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: $aurora-border-radius;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--aurora-text-primary);
+    transition: transform $aurora-transition-medium, box-shadow $aurora-transition-medium;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: var(--aurora-grid-gap);
+    width: 100%;
+    box-sizing: border-box;
+    
+    // Line animation on hover
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--aurora-accent-color), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform $aurora-transition-medium;
+    }
+    
+    &:hover::after {
+      transform: scaleX(1);
+    }
+    
+    @include max-sm {
+      padding: 1.5rem;
+    }
+  }
+  
+  // Card with hover effect
+  .aurora-card-hover {
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $aurora-shadow-md;
+    }
+  }
+  
+  // Card icon
+  .aurora-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    background-color: rgba($aurora-accent-color, 0.1);
+    border-radius: $aurora-border-radius;
+  }
+  
+  // Secondary accent card
+  .aurora-card-secondary {
+    &::after {
+      background: linear-gradient(90deg, var(--aurora-secondary-accent), transparent);
+    }
+  }
+  
+  // Dual accent card
+  .aurora-card-dual {
+    &::after {
+      background: linear-gradient(90deg, var(--aurora-accent-color), var(--aurora-secondary-accent), transparent);
+    }
+  }
+  
+  // Glass card
+  .aurora-glass-card {
+    @include glass-effect;
+    padding: 3rem;
+    box-shadow: $aurora-shadow-lg;
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--aurora-accent-color), var(--aurora-secondary-accent));
+    }
+    
+    @include max-sm {
+      padding: 1.5rem;
+    }
+  }
+  
+  // Showcase card (for demo purposes)
+  .showcase-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    .card-content {
+      flex: 1;
+    }
+  }
+  
+  // Color swatches
+  .color-swatch {
+    height: 100px;
+    border-radius: $aurora-border-radius;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+    color: white;
+    font-weight: 500;
+    transition: transform $aurora-transition-fast;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+  
+  // Light theme modifications
+  .aurora-light {
+    .aurora-card {
+      background-color: rgba(20, 20, 20, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }

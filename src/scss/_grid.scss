@@ -1,0 +1,162 @@
+// Aurora Framework Grid System
+
+// Container
+.aurora-container {
+    width: 100%;
+    max-width: $container-max-width;
+    padding: 0 2rem;
+    margin: 0 auto;
+    
+    @include max-md {
+      padding: 0 1rem;
+    }
+  }
+  
+  .aurora-container-fluid {
+    width: 100%;
+    padding: 2rem;
+    
+    @include max-md {
+      padding: 1rem;
+    }
+  }
+  
+  // Row
+  .aurora-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--aurora-grid-gap) / 2);
+    margin-right: calc(-1 * var(--aurora-grid-gap) / 2);
+  }
+  
+  // Base column
+  .aurora-col {
+    padding-left: calc(var(--aurora-grid-gap) / 2);
+    padding-right: calc(var(--aurora-grid-gap) / 2);
+    flex: 1 0 0%;
+  }
+  
+  // Column widths for different breakpoints
+  @for $i from 1 through 12 {
+    .aurora-col-#{$i} {
+      flex: 0 0 percentage($i / 12);
+      max-width: percentage($i / 12);
+    }
+  }
+  
+  // Responsive column classes
+  @include sm {
+    @for $i from 1 through 12 {
+      .aurora-col-sm-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+      }
+    }
+  }
+  
+  @include md {
+    @for $i from 1 through 12 {
+      .aurora-col-md-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+      }
+    }
+    
+    // Special case for sidebar
+    .aurora-col-md-3 {
+      flex: 0 0 250px;
+      max-width: 250px;
+    }
+    
+    .aurora-col-md-9 {
+      flex: 1;
+      max-width: none;
+    }
+  }
+  
+  @include lg {
+    @for $i from 1 through 12 {
+      .aurora-col-lg-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+      }
+    }
+  }
+  
+  @include xl {
+    @for $i from 1 through 12 {
+      .aurora-col-xl-#{$i} {
+        flex: 0 0 percentage($i / 12);
+        max-width: percentage($i / 12);
+      }
+    }
+  }
+  
+  // Fix for component section layout
+  #components {
+    display: block;
+    width: 100%;
+    
+    .aurora-row {
+      display: flex;
+      width: 100%;
+      flex-wrap: nowrap;
+      gap: 2rem;
+      
+      @include max-md {
+        flex-direction: column;
+      }
+    }
+  }
+  
+  // Component navigation sidebar
+  .component-nav {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 80px;
+    align-self: flex-start;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    
+    @include max-md {
+      width: 100%;
+      position: relative;
+      top: 0;
+      margin-bottom: 2rem;
+    }
+  }
+  
+  // Main content area
+  #components .aurora-col-12.aurora-col-md-9 {
+    flex: 1;
+    max-width: none;
+    min-width: 0;
+  }
+  
+  // Component sections
+  .component-section {
+    width: 100%;
+    margin-bottom: 4rem;
+    box-sizing: border-box;
+  }
+  
+  // Section headings
+  .section-heading {
+    margin: 0 0 2rem 0;
+    font-size: 2rem;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    
+    @include max-md {
+      font-size: 1.75rem;
+    }
+  }
+  
+  // Media query for large screens
+  @media (min-width: 1400px) {
+    .aurora-container {
+      padding: 0 4rem;
+    }
+  }

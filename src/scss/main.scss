@@ -1,0 +1,26 @@
+/*
+ * Aurora CSS Framework v1.0.0
+ * A lightweight, modern CSS framework focused on creating elegant, 
+ * responsive interfaces with glass morphism effects, fluid animations, 
+ * and dark/light mode support.
+ * 
+ * MIT License
+ */
+
+// Import all Aurora Sass components
+@import "variables";
+@import "mixins";
+@import "reset";
+@import "grid";
+@import "typography";
+@import "buttons";
+@import "cards";
+@import "forms";
+@import "navigation";
+@import "modals";
+@import "tooltips";
+@import "animations";
+@import "utilities";
+@import "dark-mode";
+@import "responsive";
+@import "layout-fixes";

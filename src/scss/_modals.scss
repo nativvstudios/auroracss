@@ -1,0 +1,77 @@
+// Aurora Framework Modals
+
+// Modal container
+.aurora-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--aurora-card-color);
+    border-radius: $aurora-border-radius;
+    box-shadow: $aurora-shadow-lg;
+    z-index: $z-index-modal;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(10px);
+    
+    &.aurora-modal-active {
+      display: block;
+      opacity: 1;
+    }
+  }
+  
+  // Modal header
+  .aurora-modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  // Modal title
+  .aurora-modal-title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  // Modal close button
+  .aurora-modal-close {
+    background: none;
+    border: none;
+    color: var(--aurora-text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color $aurora-transition-fast;
+    
+    &:hover {
+      color: var(--aurora-accent-color);
+    }
+  }
+  
+  // Modal body
+  .aurora-modal-body {
+    padding: 1.5rem;
+  }
+  
+  // Modal backdrop
+  .aurora-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: $z-index-modal-backdrop;
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+  }

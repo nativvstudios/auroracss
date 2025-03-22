@@ -1,0 +1,366 @@
+// Aurora Framework Navigation - Improved for Mobile
+@use "sass:math";
+
+// Navbar
+.aurora-navbar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  background-color: var(--aurora-card-color);
+  backdrop-filter: blur(10px);
+  border-radius: $aurora-border-radius;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $z-index-navbar;
+  margin: 1rem auto;
+  max-width: calc(100% - 2rem);
+  width: 100%;
+  box-shadow: $aurora-shadow-md;
+  
+  @include max-md {
+    padding: 0.75rem 1rem;
+    margin: 0.5rem;
+    position: fixed;
+    width: calc(100% - 1rem);
+  }
+}
+
+// Brand/logo
+.aurora-navbar-brand {
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: -0.5px;
+  margin-right: 2rem;
+  z-index: 2;
+  
+  @include max-md {
+    margin-right: 0;
+    flex: 1;
+  }
+}
+
+// Main navigation menu
+.aurora-navbar-menu {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1.5rem;
+  
+  @include max-md {
+    display: none;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+// Navigation links
+.aurora-nav-link {
+  color: var(--aurora-text-secondary);
+  font-size: 0.9rem;
+  transition: color $aurora-transition-fast;
+  position: relative;
+  
+  &:hover {
+    color: var(--aurora-text-primary);
+  }
+  
+  &.aurora-active {
+    color: var(--aurora-accent-color);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background-color: var(--aurora-accent-color);
+      
+      @include max-md {
+        height: 100%;
+        width: 3px;
+        top: 0;
+        bottom: 0;
+        left: -8px;
+      }
+    }
+  }
+  
+  @include max-md {
+    display: block;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+}
+
+// Right-aligned navbar content
+.aurora-navbar-end {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  @include max-md {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 1rem;
+    justify-content: flex-start;
+  }
+}
+
+// Mobile navigation toggle button
+.aurora-navbar-toggle {
+  display: none;
+  flex-direction: column;
+  width: 24px;
+  height: 18px;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 2;
+  
+  span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--aurora-text-primary);
+    transition: all $aurora-transition-fast;
+  }
+  
+  @include max-md {
+    display: flex;
+    margin-left: 1rem;
+  }
+}
+
+// Open state for mobile navigation
+.aurora-navbar.aurora-open {
+  .aurora-navbar-menu {
+    display: flex;
+  }
+  
+  .aurora-navbar-toggle {
+    span:first-child {
+      transform: translateY(8px) rotate(45deg);
+    }
+    
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    span:last-child {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+  }
+}
+
+// Component navigation sidebar
+.component-nav {
+  padding: 1rem;
+  border-radius: $aurora-border-radius;
+  background-color: var(--aurora-card-color);
+  backdrop-filter: blur(10px);
+  
+  h4 {
+    margin-bottom: 1rem;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    margin-bottom: 0.5rem;
+  }
+  
+  a {
+    display: block;
+    padding: 0.75rem;
+    border-radius: $aurora-border-radius;
+    transition: background-color $aurora-transition-fast;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    &.active {
+      background-color: rgba(var(--aurora-accent-color-rgb), 0.2);
+      color: var(--aurora-accent-color);
+      font-weight: 500;
+    }
+  }
+  
+  @include max-md {
+    margin-bottom: 2rem;
+    position: static;
+    width: 100%;
+    
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    li {
+      margin-bottom: 0;
+    }
+    
+    a {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Scroll to top button
+.aurora-scroll-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 40px;
+  height: 40px;
+  background-color: var(--aurora-accent-color);
+  color: #000;
+  border-radius: $aurora-border-radius;
+  @include flex-center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: $z-index-scroll-top;
+  transform: translateY(20px);
+  box-shadow: $aurora-shadow-md;
+  
+  &.aurora-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  @include max-sm {
+    bottom: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+// Theme toggle button
+.aurora-toggle-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+  
+  @include max-sm {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+.aurora-theme-toggle {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--aurora-text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  @include flex-center;
+  border-radius: $aurora-border-radius;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform $aurora-transition-fast;
+  
+  &:hover {
+    transform: rotate(15deg);
+  }
+  
+  @include max-sm {
+    font-size: 1.25rem;
+    padding: 0.4rem;
+  }
+}
+
+// Footer
+.aurora-footer {
+  font-size: 0.8rem;
+  color: var(--aurora-text-secondary);
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: auto;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  
+  @include max-md {
+    text-align: left;
+    
+    .aurora-text-right {
+      text-align: left;
+      margin-top: 1rem;
+    }
+    
+    .aurora-justify-end {
+      justify-content: flex-start;
+    }
+  }
+}
+
+// Social links
+.aurora-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.aurora-social-link {
+  @include flex-center;
+  width: 40px;
+  height: 40px;
+  border-radius: $aurora-border-radius;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: var(--aurora-text-primary);
+  text-decoration: none;
+  transition: all $aurora-transition-medium;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--aurora-accent-color);
+    transform: translateY(100%);
+    transition: transform $aurora-transition-medium;
+    z-index: -1;
+  }
+  
+  &:nth-child(2n)::after {
+    background: var(--aurora-secondary-accent);
+  }
+  
+  &:hover::after {
+    transform: translateY(0);
+  }
+  
+  &:hover {
+    color: var(--aurora-bg-color);
+    transform: translateY(-3px);
+  }
+  
+  svg {
+    position: relative;
+    z-index: 1;
+  }
+}

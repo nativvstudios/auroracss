@@ -1,0 +1,68 @@
+// Aurora Framework Tooltips
+
+// Tooltip container
+.aurora-tooltip-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: $z-index-tooltip;
+  }
+  
+  // Tooltip element
+  .aurora-tooltip {
+    position: absolute;
+    background-color: var(--aurora-card-color);
+    color: var(--aurora-text-primary);
+    padding: 0.75rem 1rem;
+    border-radius: $aurora-border-radius;
+    font-size: 0.85rem;
+    max-width: 200px;
+    min-width: 80px;
+    box-shadow: $aurora-shadow-md;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: $z-index-tooltip;
+    word-wrap: break-word;
+    white-space: normal;
+    line-height: 1.4;
+    text-align: center;
+    
+    &.active {
+      opacity: 1;
+    }
+  }
+  
+  // Tooltip positions
+  .aurora-tooltip-top {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  
+  .aurora-tooltip-bottom {
+    transform: translateX(-50%) translateY(10px);
+  }
+  
+  .aurora-tooltip-left {
+    transform: translateX(-10px);
+  }
+  
+  .aurora-tooltip-right {
+    transform: translateX(10px);
+  }
+  
+  .aurora-tooltip-follow {
+    transform: translate(10px, 10px);
+  }
+  
+  // Tooltip animations
+  @keyframes tooltip-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes tooltip-fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }

@@ -1,0 +1,133 @@
+// Aurora Framework Mixins
+
+// Glass morphism effect
+@mixin glass-effect {
+    background-color: var(--aurora-card-color);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $aurora-border-radius;
+  }
+  
+  // Truncate text with ellipsis
+  @mixin truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  // Flex center
+  @mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Absolute center (both horizontally and vertically)
+  @mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  // Hover lift effect
+  @mixin hover-lift($distance: -5px) {
+    transition: transform $aurora-transition-medium, box-shadow $aurora-transition-medium;
+    
+    &:hover {
+      transform: translateY($distance);
+      box-shadow: $aurora-shadow-md;
+    }
+  }
+  
+  // Gradient text
+  @mixin gradient-text($gradient: linear-gradient(135deg, $aurora-accent-color, $aurora-secondary-accent)) {
+    background: $gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  // Responsive breakpoints
+  @mixin sm {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+  
+  @mixin md {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  }
+  
+  @mixin lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+  
+  @mixin xl {
+    @media (min-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+  
+  @mixin max-sm {
+    @media (max-width: $breakpoint-sm - 1px) {
+      @content;
+    }
+  }
+  
+  @mixin max-md {
+    @media (max-width: $breakpoint-md - 1px) {
+      @content;
+    }
+  }
+  
+  @mixin max-lg {
+    @media (max-width: $breakpoint-lg - 1px) {
+      @content;
+    }
+  }
+  
+  @mixin max-xl {
+    @media (max-width: $breakpoint-xl - 1px) {
+      @content;
+    }
+  }
+  
+  // Generate spacing utility classes
+  @mixin generate-spacing($property, $abbr, $values) {
+    @each $size, $value in $values {
+      .aurora-#{$abbr}-#{$size} { #{$property}: $value; }
+    }
+  }
+  
+  // Generate responsive variant
+  @mixin responsive-variant($breakpoint, $prefix) {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+  
+  // Visually hide element but keep it accessible for screen readers
+  @mixin visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  // Generate animation keyframes
+  @mixin keyframes($name) {
+    @keyframes #{$name} {
+      @content;
+    }
+  }

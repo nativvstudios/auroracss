@@ -1,0 +1,334 @@
+// Aurora Framework Layout Fixes - Improved for All Screen Sizes
+@use "sass:math";
+
+// Global layout structure
+body {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  padding-top: $navbar-height;
+  display: flex;
+  flex-direction: column;
+  
+  @include max-md {
+    padding-top: 70px;
+  }
+  
+  @include max-sm {
+    padding-top: 60px;
+  }
+}
+
+// Main section areas
+section {
+  width: 100%;
+  margin: 0 auto 3rem auto;
+  padding: 2rem 0;
+  position: relative;
+  
+  @include max-md {
+    margin-bottom: 2rem;
+    padding: 1.5rem 0;
+  }
+}
+
+// Hero section
+.hero {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  position: relative;
+  
+  @include max-lg {
+    min-height: 60vh;
+    padding: 3rem 0;
+  }
+  
+  @include max-md {
+    min-height: 50vh;
+  }
+  
+  @include max-sm {
+    min-height: auto;
+    padding: 2rem 0;
+  }
+}
+
+.hero-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 4rem;
+  
+  @include max-lg {
+    padding: 3rem;
+  }
+  
+  @include max-md {
+    padding: 2rem;
+  }
+  
+  @include max-sm {
+    padding: 1.5rem;
+  }
+  
+  @media (min-width: 1400px) {
+    max-width: 1000px;
+  }
+}
+
+// Component sections
+.component-section {
+  width: 100%;
+  margin-bottom: 4rem;
+  box-sizing: border-box;
+  
+  @include max-md {
+    margin-bottom: 3rem;
+  }
+  
+  @include max-sm {
+    margin-bottom: 2.5rem;
+  }
+}
+
+// Card display layout
+.showcase-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  .card-content {
+    flex: 1;
+  }
+}
+
+// Cards
+.aurora-card, .aurora-glass-card {
+  @include max-sm {
+    padding: 1.25rem;
+  }
+}
+
+// Forms section
+#forms {
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 0;
+  
+  h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--aurora-accent-color);
+    
+    @include max-md {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    @include max-sm {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+// Better form spacing on mobile
+.aurora-form-group {
+  @include max-sm {
+    margin-bottom: 1.25rem;
+  }
+}
+
+// Color system display
+.color-system {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.color-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+  width: 100%;
+  
+  @include max-md {
+    gap: 1.5rem;
+  }
+  
+  @include max-sm {
+    gap: 1rem;
+  }
+}
+
+.color-card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 300px;
+  border-radius: $aurora-border-radius;
+  overflow: hidden;
+  
+  @include max-md {
+    min-width: 180px;
+  }
+  
+  @include max-sm {
+    min-width: 140px;
+  }
+}
+
+// Color swatches
+.color-swatch {
+  height: 100px;
+  border-radius: $aurora-border-radius;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  color: white;
+  font-weight: 500;
+  transition: transform $aurora-transition-fast;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  @include max-md {
+    height: 90px;
+  }
+  
+  @include max-sm {
+    height: 80px;
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+}
+
+// Component demonstration areas
+.component-demo {
+  width: 100%;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: $aurora-border-radius;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  
+  @include max-md {
+    padding: 1.25rem;
+    margin: 1.25rem 0;
+  }
+  
+  @include max-sm {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+}
+
+// Code blocks
+.code-block {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: $aurora-border-radius;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  border-left: 3px solid var(--aurora-accent-color);
+}
+
+// Make the buttons look better on mobile
+.button-group {
+  @include max-md {
+    flex-wrap: wrap;
+    
+    .aurora-btn {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+// Better spacing for cards
+.aurora-mt-5 {
+  @include max-sm {
+    margin-top: 1.25rem !important;
+  }
+}
+
+// Improve button alignment
+.aurora-btn-outline + .aurora-btn-outline {
+  @include max-sm {
+    margin-left: 0.5rem !important;
+  }
+}
+
+// Card icon spacing
+.aurora-card-icon {
+  @include max-sm {
+    margin-bottom: 1rem;
+  }
+}
+
+// Fix grid spacing
+.aurora-grid-gap {
+  @include max-md {
+    gap: 1.25rem;
+  }
+  
+  @include max-sm {
+    gap: 1rem;
+  }
+}
+
+// Commands
+.aurora-command-line {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--aurora-accent-color);
+}
+
+// Modal improvements
+.aurora-modal {
+  @include max-sm {
+    width: 95%;
+    
+    .aurora-modal-header {
+      padding: 1rem;
+    }
+    
+    .aurora-modal-body {
+      padding: 1rem;
+    }
+  }
+}
+
+// Grid improvements
+#components .aurora-row {
+  @include max-md {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+// Better structure for utility section and grid tests
+#utilities {
+  .aurora-mt-4 {
+    @include max-sm {
+      margin-top: 1rem !important;
+      
+      .aurora-row {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}

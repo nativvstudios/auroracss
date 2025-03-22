@@ -1,0 +1,157 @@
+// Aurora Framework Forms
+
+// Form container
+.aurora-form {
+    width: 100%;
+  }
+  
+  // Form group (label + input wrapper)
+  .aurora-form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  // Form labels
+  .aurora-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--aurora-text-secondary);
+  }
+  
+  // Shared styles for form inputs
+  %form-input-shared {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: $aurora-border-radius;
+    color: var(--aurora-text-primary);
+    font-family: $aurora-font-family;
+    font-size: 0.9rem;
+    transition: border-color $aurora-transition-fast, box-shadow $aurora-transition-fast;
+    
+    &:focus {
+      outline: none;
+      border-color: var(--aurora-accent-color);
+      box-shadow: 0 0 0 3px rgba($aurora-accent-color, 0.1);
+    }
+  }
+  
+  // Text inputs
+  .aurora-input {
+    @extend %form-input-shared;
+  }
+  
+  // Textarea
+  .aurora-textarea {
+    @extend %form-input-shared;
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  // Select dropdown
+  .aurora-select {
+    @extend %form-input-shared;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px;
+    padding-right: 2.5rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    &::-ms-expand {
+      display: none;
+    }
+    
+    &[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  
+  // Checkbox and radio wrapper
+  .aurora-form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  // Base styles for checkbox and radio
+  %form-control-shared {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-right: 0.75rem;
+    position: relative;
+    cursor: pointer;
+    transition: all $aurora-transition-fast;
+    
+    &:checked {
+      background-color: var(--aurora-accent-color);
+      border-color: var(--aurora-accent-color);
+    }
+  }
+  
+  // Checkbox
+  .aurora-checkbox {
+    @extend %form-control-shared;
+    border-radius: $aurora-border-radius;
+    
+    &:checked::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  // Radio
+  .aurora-radio {
+    @extend %form-control-shared;
+    border-radius: 50%;
+    
+    &:checked::after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 5px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: white;
+    }
+  }
+  
+  // Checkbox and radio labels
+  .aurora-check-label {
+    font-size: 0.85rem;
+    color: var(--aurora-text-secondary);
+    cursor: pointer;
+  }
+  
+  // Light theme modifications
+  .aurora-light {
+    .aurora-input,
+    .aurora-textarea,
+    .aurora-select,
+    .aurora-checkbox,
+    .aurora-radio {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: var(--aurora-text-primary);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    .aurora-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    }
+  }

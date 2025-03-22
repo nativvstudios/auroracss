@@ -1,0 +1,121 @@
+// Aurora Framework Buttons
+
+// Base button
+.aurora-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: $aurora-border-radius;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--aurora-text-primary);
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all $aurora-transition-fast;
+    position: relative;
+    overflow: hidden;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $aurora-shadow-sm;
+    }
+    
+    &:active {
+      transform: translateY(1px);
+    }
+    
+    // Hover effect with overlay
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(100%);
+      transition: transform $aurora-transition-fast;
+      z-index: 1;
+    }
+    
+    &:hover::after {
+      transform: translateY(0);
+    }
+    
+    > * {
+      position: relative;
+      z-index: 2;
+    }
+    
+    // Disabled state
+    &[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+  
+  // Primary button
+  .aurora-btn-primary {
+    background-color: var(--aurora-accent-color);
+    color: #000;
+    border: none;
+  }
+  
+  // Secondary button
+  .aurora-btn-secondary {
+    background-color: var(--aurora-secondary-accent);
+    color: #000;
+    border: none;
+  }
+  
+  // Outline button
+  .aurora-btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--aurora-accent-color);
+  }
+  
+  // Button sizes
+  .aurora-btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .aurora-btn-lg {
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+  }
+  
+  // Icon button
+  .aurora-btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Button group
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem 0;
+    
+    .aurora-btn {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  // Light theme modifications
+  .aurora-light {
+    .aurora-btn {
+      background-color: rgba(20, 20, 20, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+  }

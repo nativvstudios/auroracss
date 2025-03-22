@@ -1,0 +1,55 @@
+// Aurora Framework Dark/Light Theme
+
+// Dark theme (default)
+.aurora-dark {
+    --aurora-bg-color: #{$aurora-bg-color};
+    --aurora-card-color: #{$aurora-card-color};
+    --aurora-text-primary: #{$aurora-text-primary};
+    --aurora-text-secondary: #{$aurora-text-secondary};
+    
+    .aurora-grid-lines {
+      .aurora-horizontal-line,
+      .aurora-vertical-line {
+        opacity: 0.03;
+      }
+    }
+  }
+  
+  // Light theme
+  .aurora-light {
+    --aurora-bg-color: #{$aurora-light-bg-color};
+    --aurora-card-color: #{$aurora-light-card-color};
+    --aurora-text-primary: #{$aurora-light-text-primary};
+    --aurora-text-secondary: #{$aurora-light-text-secondary};
+    
+    .aurora-card {
+      background-color: rgba(20, 20, 20, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .aurora-social-link,
+    .aurora-btn {
+      background-color: rgba(20, 20, 20, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .aurora-grid-lines {
+      .aurora-horizontal-line,
+      .aurora-vertical-line {
+        opacity: 0.06;
+      }
+    }
+    
+    // Shadow adjustments for light theme
+    .aurora-shadow-md, 
+    .aurora-shadow-lg {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    // Form field adjustments
+    .aurora-input,
+    .aurora-textarea,
+    .aurora-select {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }

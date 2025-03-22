@@ -1,0 +1,174 @@
+// Aurora Framework Animations
+
+// Hover lift effect
+.aurora-hover-lift {
+    transition: transform $aurora-transition-medium;
+    
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+  
+  // Fade in animation
+  .aurora-animate-fade-in {
+    animation: aurora-fade-in $aurora-transition-slow forwards;
+  }
+  
+  // Slide up animation
+  .aurora-animate-slide-up {
+    animation: aurora-slide-up $aurora-transition-slow forwards;
+  }
+  
+  // Animation keyframes
+  @keyframes aurora-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes aurora-slide-up {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Code highlight animation
+  .aurora-code-highlight {
+    position: absolute;
+    width: 150px;
+    height: 15px;
+    background-color: var(--aurora-accent-color);
+    filter: blur(20px);
+    opacity: 0.15;
+    animation: aurora-highlight-animation 10s ease-in-out infinite alternate;
+  }
+  
+  .aurora-code-highlight-secondary {
+    position: absolute;
+    width: 100px;
+    height: 10px;
+    background-color: var(--aurora-secondary-accent);
+    filter: blur(20px);
+    opacity: 0.12;
+    right: 10%;
+    top: 30%;
+    animation: aurora-highlight-animation-2 12s ease-in-out infinite alternate;
+  }
+  
+  @keyframes aurora-highlight-animation {
+    0% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate(100px, 500px) rotate(30deg);
+    }
+  }
+  
+  @keyframes aurora-highlight-animation-2 {
+    0% {
+      transform: translate(100px, 50px) rotate(15deg);
+    }
+    100% {
+      transform: translate(-50px, 250px) rotate(-20deg);
+    }
+  }
+  
+  #typingDemo {
+    font-family: monospace;
+    white-space: pre;
+    display: inline-block;
+}
+
+.typing-text, .typing-cursor {
+    display: inline-block;
+}
+
+.typing-cursor {
+    animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+  
+  // Scroll animations
+  .aurora-animate-fade {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    
+    &.aurora-animate-running {
+      opacity: 1;
+    }
+  }
+  
+  .aurora-animate-slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+    &.aurora-animate-running {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .aurora-animate-slide-left {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+    &.aurora-animate-running {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .aurora-animate-slide-right {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+    &.aurora-animate-running {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  // Grid Lines Background
+  .aurora-grid-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.03;
+  }
+  
+  .aurora-horizontal-line, 
+  .aurora-vertical-line {
+    position: absolute;
+    background-color: var(--aurora-accent-color);
+  }
+  
+  .aurora-horizontal-line {
+    height: 1px;
+    width: 100%;
+  }
+  
+  .aurora-vertical-line {
+    width: 1px;
+    height: 100%;
+  }
+  
+  // Parallax effects
+  .aurora-parallax {
+    transition: transform 0.2s ease-out;
+    will-change: transform;
+  }

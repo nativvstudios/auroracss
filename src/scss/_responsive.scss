@@ -1,0 +1,278 @@
+// Aurora Framework Improved Responsive Utilities
+@use "sass:math";
+
+// Comprehensive responsive design system
+// ----------------------------------------
+
+// Base responsive container behavior
+.aurora-container {
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: 0 auto;
+  
+  // Scale padding with screen size
+  @include sm {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  @include md {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  @include lg {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+  
+  @include xl {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+// Row improvements
+.aurora-row {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
+  
+  @include sm {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+  }
+  
+  @include md {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+}
+
+// Column improvements for small screens
+[class*="aurora-col-"] {
+  padding: 0.5rem;
+  
+  @include sm {
+    padding: 0.75rem;
+  }
+  
+  @include md {
+    padding: 1rem;
+  }
+}
+
+// Responsive typography
+html {
+  font-size: 15px;
+  
+  @include sm {
+    font-size: 15.5px;
+  }
+  
+  @include md {
+    font-size: 16px;
+  }
+  
+  @include lg {
+    font-size: 16.5px;
+  }
+  
+  @include xl {
+    font-size: 17px;
+  }
+}
+
+// Small screens (below sm breakpoint)
+@include max-sm {
+  // Improved small-screen column behavior
+  [class*="aurora-col-"] {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  // Adjust spacing on small screens
+  .aurora-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .aurora-card, .aurora-glass-card {
+    padding: 1.25rem !important;
+  }
+  
+  // Adjust hero spacing
+  .hero {
+    min-height: auto !important;
+    padding: 3rem 0 !important;
+  }
+  
+  .hero-content {
+    padding: 1.5rem !important;
+  }
+  
+  .hero-title {
+    font-size: 1.75rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.95rem !important;
+  }
+  
+  // Improve section spacing
+  .component-section {
+    margin-bottom: 2.5rem !important;
+  }
+  
+  // Fix button spacing
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    
+    .aurora-btn {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  // Improve text display
+  h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  h3 {
+    font-size: 1.35rem !important;
+  }
+  
+  // Fix form layout
+  .aurora-form-group {
+    margin-bottom: 1.25rem !important;
+  }
+  
+  // Fix various visibility and positioning
+  .aurora-toggle-container {
+    top: 1rem !important;
+    right: 1rem !important;
+  }
+  
+  .aurora-scroll-top {
+    bottom: 1rem !important;
+    right: 1rem !important;
+  }
+  
+  // Color swatches behavior
+  .color-swatch {
+    height: 80px !important;
+  }
+  
+  // Better demo containers
+  .component-demo {
+    padding: 1rem !important;
+  }
+  
+  // Image and icon sizing
+  .aurora-card-icon {
+    margin-bottom: 1rem !important;
+  }
+  
+  // Improved visibility classes
+  .aurora-sm-hidden { display: none !important; }
+  .aurora-sm-block { display: block !important; }
+  .aurora-sm-flex { display: flex !important; }
+  .aurora-sm-grid { display: grid !important; }
+}
+
+// Medium screens
+@media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md - 1px) {
+  // Adjust column behavior between sm and md
+  .aurora-col-sm-6,
+  .aurora-col-6 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+  }
+  
+  // Improved visibility classes
+  .aurora-md-hidden { display: none !important; }
+  .aurora-md-block { display: block !important; }
+  .aurora-md-flex { display: flex !important; }
+  .aurora-md-grid { display: grid !important; }
+}
+
+// Large screens
+@media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg - 1px) {
+  // Large screen specific adjustments
+  .aurora-lg-hidden { display: none !important; }
+  .aurora-lg-block { display: block !important; }
+  .aurora-lg-flex { display: flex !important; }
+  .aurora-lg-grid { display: grid !important; }
+}
+
+// Extra large screens
+@include xl {
+  .aurora-xl-hidden { display: none !important; }
+  .aurora-xl-block { display: block !important; }
+  .aurora-xl-flex { display: flex !important; }
+  .aurora-xl-grid { display: grid !important; }
+  
+  // Better use of space on large screens
+  .aurora-container {
+    max-width: 1400px;
+  }
+  
+  .hero-content {
+    max-width: 900px;
+  }
+}
+
+// CRITICAL: Mobile navigation fixes
+// ----------------------------------------
+@include max-md {
+  // Fix navbar appearance
+  .aurora-navbar {
+    padding: 0.75rem 1rem !important;
+    margin: 0.5rem !important;
+    width: calc(100% - 1rem) !important;
+  }
+  
+  // Proper menu appearance when closed
+  .aurora-navbar-menu {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  // Show menu when open
+  .aurora-navbar.aurora-open .aurora-navbar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  // Improve nav links on mobile
+  .aurora-nav-link {
+    display: block;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+  
+  // Right-aligned content becomes left-aligned on mobile
+  .aurora-navbar-end {
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  // Component navigation behavior
+  #components .aurora-row {
+    flex-direction: column;
+  }
+  
+  // Clear sidebar component position
+  .component-nav {
+    position: relative;
+    top: 0;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+}

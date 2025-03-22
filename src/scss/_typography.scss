@@ -1,0 +1,255 @@
+// Aurora Framework Typography
+
+// Title
+.aurora-title {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  // Subtitle
+  .aurora-subtitle {
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--aurora-text-secondary);
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  // Regular text
+  .aurora-text {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  
+  // Text colors
+  .aurora-text-secondary {
+    color: var(--aurora-text-secondary);
+  }
+  
+  .aurora-text-accent {
+    color: var(--aurora-accent-color);
+  }
+  
+  // Section title with line
+  .aurora-section-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    color: var(--aurora-accent-color);
+    display: flex;
+    align-items: center;
+    
+    &::after {
+      content: '';
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.1);
+      flex: 1;
+      margin-left: 1rem;
+    }
+  }
+  
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  h5 {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  h6 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  // Hero section typography
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    @include gradient-text;
+    
+    @include max-md {
+      font-size: 2rem;
+    }
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+    
+    @include max-md {
+      font-size: 0.9rem;
+    }
+  }
+  
+  // Card typography
+  .aurora-card-title {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.3px;
+  }
+  
+  .aurora-card-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    font-weight: 300;
+    color: var(--aurora-text-secondary);
+  }
+  
+  // Text sizing utility classes
+  .aurora-text-xs {
+    font-size: 0.75rem;
+  }
+  
+  .aurora-text-sm {
+    font-size: 0.875rem;
+  }
+  
+  .aurora-text-base {
+    font-size: 1rem;
+  }
+  
+  .aurora-text-lg {
+    font-size: 1.125rem;
+  }
+  
+  .aurora-text-xl {
+    font-size: 1.25rem;
+  }
+  
+  .aurora-text-2xl {
+    font-size: 1.5rem;
+  }
+  
+  .aurora-text-3xl {
+    font-size: 1.875rem;
+  }
+  
+  .aurora-text-4xl {
+    font-size: 2.25rem;
+  }
+  
+  // Font weights
+  .aurora-font-thin {
+    font-weight: 100;
+  }
+  
+  .aurora-font-extralight {
+    font-weight: 200;
+  }
+  
+  .aurora-font-light {
+    font-weight: 300;
+  }
+  
+  .aurora-font-normal {
+    font-weight: 400;
+  }
+  
+  .aurora-font-medium {
+    font-weight: 500;
+  }
+  
+  .aurora-font-semibold {
+    font-weight: 600;
+  }
+  
+  .aurora-font-bold {
+    font-weight: 700;
+  }
+  
+  .aurora-font-extrabold {
+    font-weight: 800;
+  }
+  
+  // Text transformations
+  .aurora-uppercase {
+    text-transform: uppercase;
+  }
+  
+  .aurora-lowercase {
+    text-transform: lowercase;
+  }
+  
+  .aurora-capitalize {
+    text-transform: capitalize;
+  }
+  
+  .aurora-normal-case {
+    text-transform: none;
+  }
+  
+  // Letter spacing
+  .aurora-tracking-tighter {
+    letter-spacing: -0.05em;
+  }
+  
+  .aurora-tracking-tight {
+    letter-spacing: -0.025em;
+  }
+  
+  .aurora-tracking-normal {
+    letter-spacing: 0;
+  }
+  
+  .aurora-tracking-wide {
+    letter-spacing: 0.025em;
+  }
+  
+  .aurora-tracking-wider {
+    letter-spacing: 0.05em;
+  }
+  
+  .aurora-tracking-widest {
+    letter-spacing: 0.1em;
+  }
+  
+  // Text alignment
+  .aurora-text-left {
+    text-align: left;
+  }
+  
+  .aurora-text-center {
+    text-align: center;
+  }
+  
+  .aurora-text-right {
+    text-align: right;
+  }
+  
+  .aurora-text-justify {
+    text-align: justify;
+  }

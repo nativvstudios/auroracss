@@ -1,0 +1,99 @@
+// Aurora Framework Reset & Base Styles
+
+// CSS Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  // Base HTML styles
+  html {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  // Base body styles
+  body {
+    background-color: var(--aurora-bg-color);
+    font-family: $aurora-font-family;
+    color: var(--aurora-text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    
+    // Fix for the gradient - use CSS variables instead of direct Sass variables
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(var(--aurora-accent-color-rgb), 0.03) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(var(--aurora-secondary-accent-rgb), 0.03) 0%, transparent 20%),
+      linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%);
+    background-attachment: fixed;
+    padding-top: $navbar-height;
+  }
+  
+  // Links
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color $aurora-transition-fast;
+    
+    &:hover {
+      color: var(--aurora-accent-color);
+    }
+  }
+  
+  // Images
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  // List styling reset
+  ul, ol {
+    list-style: none;
+  }
+  
+  // Default CSS variables for all themes
+  :root {
+    // Colors
+    --aurora-bg-color: #{$aurora-bg-color};
+    --aurora-card-color: #{$aurora-card-color};
+    --aurora-accent-color: #{$aurora-accent-color};
+    --aurora-accent-color-rgb: #{red($aurora-accent-color)}, #{green($aurora-accent-color)}, #{blue($aurora-accent-color)};
+    --aurora-secondary-accent: #{$aurora-secondary-accent};
+    --aurora-secondary-accent-rgb: #{red($aurora-secondary-accent)}, #{green($aurora-secondary-accent)}, #{blue($aurora-secondary-accent)};
+    --aurora-text-primary: #{$aurora-text-primary};
+    --aurora-text-secondary: #{$aurora-text-secondary};
+    
+    // Sizes
+    --aurora-border-radius: #{$aurora-border-radius};
+    --aurora-grid-gap: #{$aurora-grid-gap};
+    
+    // Transitions
+    --aurora-transition-fast: #{$aurora-transition-fast};
+    --aurora-transition-medium: #{$aurora-transition-medium};
+    --aurora-transition-slow: #{$aurora-transition-slow};
+    
+    // Shadows
+    --aurora-shadow-sm: #{$aurora-shadow-sm};
+    --aurora-shadow-md: #{$aurora-shadow-md};
+    --aurora-shadow-lg: #{$aurora-shadow-lg};
+  }
+  
+  // Fix for text overflow
+  * {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  // Clear floats
+  .clearfix {
+    &::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+  }
