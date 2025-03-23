@@ -1,11 +1,12 @@
-name: Build CSS Framework
+name: Build Aurora Framework
 
 on:
   push:
-    branches: [ main ]  # Or whatever your default branch name is
+    branches: [ main ]  # Change this to match your default branch
     paths:
-      - 'src/**/*.scss'  # Only trigger when SCSS files change, adjust as needed
-      - 'gulpfile.js'    # Or when gulpfile changes
+      - 'src/scss/**/*.scss'
+      - 'src/js/*.js'
+      - 'gulpfile.js'
 
 jobs:
   build:
@@ -17,18 +18,21 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Choose your preferred Node version
+        node-version: '16'  # Adjust if you need a different version
         cache: 'npm'
     
     - name: Install dependencies
-      run: npm ci  # Or npm install if you don't have a package-lock.json
+      run: npm ci
+      
+    - name: Install gulp-cli globally
+      run: npm install -g gulp-cli
     
-    - name: Run gulp
-      run: npx gulp  # Or specify your specific gulp task if needed
+    - name: Run gulp build
+      run: gulp build  # This will run both buildStyles and buildScripts
     
     - name: Commit and push if changed
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
-        git add -A
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-build CSS files" && git push)
+        git add dist/
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-build Aurora framework assets" && git push)
