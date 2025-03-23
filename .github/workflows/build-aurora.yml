@@ -1,0 +1,38 @@
+name: Build Aurora Framework
+
+on:
+  push:
+    branches: [ main ]  # Change this to match your default branch
+    paths:
+      - 'src/scss/**/*.scss'
+      - 'src/js/*.js'
+      - 'gulpfile.js'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Adjust if you need a different version
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Install gulp-cli globally
+      run: npm install -g gulp-cli
+    
+    - name: Run gulp build
+      run: gulp build  # This will run both buildStyles and buildScripts
+    
+    - name: Commit and push if changed
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add dist/
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-build Aurora framework assets" && git push)
