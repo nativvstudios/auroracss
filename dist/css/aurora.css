@@ -1499,8 +1499,10 @@ h6 {
   padding: 0.75rem 1rem;
   border-radius: 4px;
   font-size: 0.85rem;
-  max-width: 200px;
-  min-width: 80px;
+  max-width: 300px;
+  width: -moz-max-content;
+  width: max-content;
+  min-width: unset;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -1508,10 +1510,10 @@ h6 {
           backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1010;
-  word-wrap: break-word;
   white-space: normal;
   line-height: 1.4;
-  text-align: center;
+  text-align: left;
+  word-wrap: break-word;
 }
 .aurora-tooltip.active {
   opacity: 1;
