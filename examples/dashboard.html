@@ -9,13 +9,41 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="aurora-container-fluid">
+    <!-- Add the navbar before the container -->
+    <nav class="aurora-navbar">
+        <a href="#" class="aurora-navbar-brand">Aurora Dashboard</a>
+        <button class="aurora-navbar-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="aurora-navbar-menu">
+          <a href="#dashboard" class="aurora-nav-link aurora-active">Dashboard</a>
+          <a href="#analytics" class="aurora-nav-link">Analytics</a>
+          <a href="#users" class="aurora-nav-link">Users</a>
+          <a href="#" class="aurora-nav-link" data-aurora-modal="settingsModal">Settings</a>
+        </div>
+        <div class="aurora-navbar-end">
+            <button class="aurora-btn aurora-btn-icon aurora-mr-2">
+                <i class="fas fa-bell"></i>
+            </button>
+            <button class="aurora-btn aurora-btn-icon aurora-mr-2">
+                <i class="fas fa-user"></i>
+            </button>
+            <button class="aurora-btn aurora-btn-icon">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Modify the container to account for navbar -->
+    <div class="aurora-container-fluid" style="margin-top: 5rem;">
         <div class="aurora-row">
             <!-- Sidebar -->
             <div class="aurora-col-12 aurora-col-md-3 aurora-col-lg-2 aurora-p-0">
                 <div class="aurora-card aurora-h-full aurora-rounded-none aurora-border-r">
                     <div class="aurora-p-4">
-                        <h2 class="aurora-text-xl aurora-font-bold">Dashboard</h2>
+                        <h2 class="aurora-text-xl aurora-font-bold">Menu</h2>
                     </div>
                     <nav class="aurora-navbar-menu aurora-flex aurora-flex-col">
                         <a href="#" class="aurora-nav-link aurora-active aurora-p-3">
@@ -36,34 +64,8 @@
 
             <!-- Main Content -->
             <div class="aurora-col-12 aurora-col-md-9 aurora-col-lg-10">
-                <!-- Top Bar -->
-                <div class="aurora-card aurora-mb-4 aurora-rounded-none aurora-border-b">
-                    <div class="aurora-flex aurora-justify-between aurora-items-center aurora-p-4">
-                        <div class="aurora-flex aurora-items-center">
-                            <button class="aurora-navbar-toggle aurora-md-hidden">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </button>
-                            <h1 class="aurora-text-xl aurora-font-bold aurora-ml-4">Overview</h1>
-                        </div>
-                        <div class="aurora-flex aurora-items-center">
-                            <div class="aurora-mr-4">
-                                <span class="aurora-text-sm aurora-text-secondary">Last updated: </span>
-                                <span id="lastUpdate" class="aurora-text-sm aurora-font-medium"></span>
-                            </div>
-                            <button class="aurora-btn aurora-btn-icon aurora-mr-2">
-                                <i class="fas fa-bell"></i>
-                            </button>
-                            <button class="aurora-btn aurora-btn-icon">
-                                <i class="fas fa-user"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- Stats Cards -->
-                <div class="aurora-row aurora-mb-4">
+                <div id="dashboard" class="aurora-row aurora-mb-4">
                     <div class="aurora-col-12 aurora-col-sm-6 aurora-col-lg-3">
                         <div class="aurora-card aurora-h-full">
                             <div class="aurora-p-4">
@@ -127,7 +129,7 @@
                 </div>
 
                 <!-- Charts Section -->
-                <div class="aurora-row aurora-mb-4">
+                <div id="analytics" class="aurora-row aurora-mb-4">
                     <div class="aurora-col-12 aurora-col-lg-8">
                         <div class="aurora-card aurora-h-full">
                             <div class="aurora-p-4">
@@ -151,7 +153,7 @@
                 </div>
 
                 <!-- Table Section -->
-                <div class="aurora-card">
+                <div id="users" class="aurora-card">
                     <div class="aurora-p-4">
                         <h3 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Recent Orders</h3>
                         <div class="aurora-overflow-x-auto">
@@ -176,13 +178,104 @@
         </div>
     </div>
 
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="aurora-modal">
+        <div class="aurora-modal-content">
+            <div class="aurora-modal-header">
+                <h3 class="aurora-text-xl aurora-font-bold">Dashboard Settings</h3>
+                <button class="aurora-modal-close">&times;</button>
+            </div>
+            <div class="aurora-modal-body">
+                <!-- Theme Settings -->
+                <div class="aurora-mb-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-2">Theme</h4>
+                    <div class="aurora-flex aurora-items-center aurora-space-x-4">
+                        <label class="aurora-flex aurora-items-center">
+                            <input type="radio" name="theme" value="dark" class="aurora-mr-2">
+                            Dark Mode
+                        </label>
+                        <label class="aurora-flex aurora-items-center">
+                            <input type="radio" name="theme" value="light" class="aurora-mr-2">
+                            Light Mode
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Notification Settings -->
+                <div class="aurora-mb-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-2">Notifications</h4>
+                    <div class="aurora-space-y-2">
+                        <label class="aurora-flex aurora-items-center">
+                            <input type="checkbox" class="aurora-mr-2" checked>
+                            Price Alerts
+                        </label>
+                        <label class="aurora-flex aurora-items-center">
+                            <input type="checkbox" class="aurora-mr-2" checked>
+                            New Orders
+                        </label>
+                        <label class="aurora-flex aurora-items-center">
+                            <input type="checkbox" class="aurora-mr-2" checked>
+                            System Updates
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Auto Refresh Settings -->
+                <div class="aurora-mb-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-2">Auto Refresh</h4>
+                    <select class="aurora-select aurora-w-full">
+                        <option value="30">Every 30 seconds</option>
+                        <option value="60">Every minute</option>
+                        <option value="300" selected>Every 5 minutes</option>
+                        <option value="600">Every 10 minutes</option>
+                    </select>
+                </div>
+
+                <!-- Currency Settings -->
+                <div class="aurora-mb-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-2">Default Currency</h4>
+                    <select class="aurora-select aurora-w-full">
+                        <option value="USD" selected>USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="JPY">JPY</option>
+                    </select>
+                </div>
+            </div>
+            <div class="aurora-modal-footer">
+                <button class="aurora-btn aurora-btn-secondary aurora-modal-close">Cancel</button>
+                <button class="aurora-btn aurora-btn-primary">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../dist/js/aurora.js"></script>
+    <script src="../dist/js/aurora-animationfix.js"></script>
     <script>
         // Initialize Aurora components
         Aurora.init({
             mobileNav: true,
             themeToggle: true,
-            scrollAnimations: true
+            scrollAnimations: true,
+            modals: true  // Make sure modals are enabled
+        });
+
+        // Handle settings form submission
+        document.querySelector('#settingsModal .aurora-btn-primary').addEventListener('click', function() {
+            // Get form values
+            const theme = document.querySelector('input[name="theme"]:checked')?.value;
+            const refreshInterval = document.querySelector('#settingsModal select').value;
+            
+            // Apply settings
+            if (theme) {
+                Aurora.setTheme(theme);
+            }
+            
+            // Close modal
+            Aurora.initModal().close('settingsModal');
+            
+            // Show success message (you can replace this with a toast notification)
+            alert('Settings saved successfully!');
         });
 
         // Initialize Chart.js
