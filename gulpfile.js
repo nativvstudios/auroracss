@@ -8,7 +8,7 @@ const terser = require('gulp-terser');
 
 // Compile SCSS to CSS
 function buildStyles() {
-  return gulp.src('./src/scss/main.scss')
+  return gulp.src('./src/scss/aurora.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(postcss([autoprefixer()]))
     .pipe(gulp.dest('./dist/css'))

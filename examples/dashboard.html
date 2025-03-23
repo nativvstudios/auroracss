@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Dashboard</title>
+    <link rel="stylesheet" href="../dist/css/aurora.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="aurora-container-fluid">
+        <div class="aurora-row">
+            <!-- Sidebar -->
+            <div class="aurora-col-12 aurora-col-md-3 aurora-col-lg-2 aurora-p-0">
+                <div class="aurora-card aurora-h-full aurora-rounded-none aurora-border-r">
+                    <div class="aurora-p-4">
+                        <h2 class="aurora-text-xl aurora-font-bold">Dashboard</h2>
+                    </div>
+                    <nav class="aurora-navbar-menu aurora-flex aurora-flex-col">
+                        <a href="#" class="aurora-nav-link aurora-active aurora-p-3">
+                            <i class="fas fa-home aurora-mr-2"></i> Overview
+                        </a>
+                        <a href="#" class="aurora-nav-link aurora-p-3">
+                            <i class="fas fa-chart-bar aurora-mr-2"></i> Analytics
+                        </a>
+                        <a href="#" class="aurora-nav-link aurora-p-3">
+                            <i class="fas fa-users aurora-mr-2"></i> Users
+                        </a>
+                        <a href="#" class="aurora-nav-link aurora-p-3">
+                            <i class="fas fa-cog aurora-mr-2"></i> Settings
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="aurora-col-12 aurora-col-md-9 aurora-col-lg-10">
+                <!-- Top Bar -->
+                <div class="aurora-card aurora-mb-4 aurora-rounded-none aurora-border-b">
+                    <div class="aurora-flex aurora-justify-between aurora-items-center aurora-p-4">
+                        <div class="aurora-flex aurora-items-center">
+                            <button class="aurora-navbar-toggle aurora-md-hidden">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </button>
+                            <h1 class="aurora-text-xl aurora-font-bold aurora-ml-4">Overview</h1>
+                        </div>
+                        <div class="aurora-flex aurora-items-center">
+                            <div class="aurora-mr-4">
+                                <span class="aurora-text-sm aurora-text-secondary">Last updated: </span>
+                                <span id="lastUpdate" class="aurora-text-sm aurora-font-medium"></span>
+                            </div>
+                            <button class="aurora-btn aurora-btn-icon aurora-mr-2">
+                                <i class="fas fa-bell"></i>
+                            </button>
+                            <button class="aurora-btn aurora-btn-icon">
+                                <i class="fas fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="aurora-row aurora-mb-4">
+                    <div class="aurora-col-12 aurora-col-sm-6 aurora-col-lg-3">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <div class="aurora-flex aurora-justify-between aurora-items-center">
+                                    <div>
+                                        <h3 class="aurora-text-lg aurora-font-semibold">Bitcoin (BTC)</h3>
+                                        <p id="btcPrice" class="aurora-text-3xl aurora-font-bold aurora-mt-2">Loading...</p>
+                                    </div>
+                                    <div class="aurora-text-2xl aurora-text-accent">
+                                        <i class="fab fa-bitcoin"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aurora-col-12 aurora-col-sm-6 aurora-col-lg-3">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <div class="aurora-flex aurora-justify-between aurora-items-center">
+                                    <div>
+                                        <h3 class="aurora-text-lg aurora-font-semibold">Ethereum (ETH)</h3>
+                                        <p id="ethPrice" class="aurora-text-3xl aurora-font-bold aurora-mt-2">Loading...</p>
+                                    </div>
+                                    <div class="aurora-text-2xl aurora-text-accent">
+                                        <i class="fab fa-ethereum"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aurora-col-12 aurora-col-sm-6 aurora-col-lg-3">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <div class="aurora-flex aurora-justify-between aurora-items-center">
+                                    <div>
+                                        <h3 class="aurora-text-lg aurora-font-semibold">Weather</h3>
+                                        <p id="weatherTemp" class="aurora-text-3xl aurora-font-bold aurora-mt-2">Loading...</p>
+                                    </div>
+                                    <div class="aurora-text-2xl aurora-text-accent">
+                                        <i class="fas fa-cloud-sun"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aurora-col-12 aurora-col-sm-6 aurora-col-lg-3">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <div class="aurora-flex aurora-justify-between aurora-items-center">
+                                    <div>
+                                        <h3 class="aurora-text-lg aurora-font-semibold">Exchange Rate</h3>
+                                        <p id="exchangeRate" class="aurora-text-3xl aurora-font-bold aurora-mt-2">Loading...</p>
+                                    </div>
+                                    <div class="aurora-text-2xl aurora-text-accent">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="aurora-row aurora-mb-4">
+                    <div class="aurora-col-12 aurora-col-lg-8">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <h3 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Bitcoin Price History</h3>
+                                <div class="aurora-h-64">
+                                    <canvas id="btcChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aurora-col-12 aurora-col-lg-4">
+                        <div class="aurora-card aurora-h-full">
+                            <div class="aurora-p-4">
+                                <h3 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Recent Activity</h3>
+                                <div id="activityFeed" class="aurora-space-y-4">
+                                    <!-- Activity items will be dynamically added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Section -->
+                <div class="aurora-card">
+                    <div class="aurora-p-4">
+                        <h3 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Recent Orders</h3>
+                        <div class="aurora-overflow-x-auto">
+                            <table class="aurora-w-full">
+                                <thead>
+                                    <tr class="aurora-border-b">
+                                        <th class="aurora-text-left aurora-py-3 aurora-px-4">Order ID</th>
+                                        <th class="aurora-text-left aurora-py-3 aurora-px-4">Customer</th>
+                                        <th class="aurora-text-left aurora-py-3 aurora-px-4">Product</th>
+                                        <th class="aurora-text-left aurora-py-3 aurora-px-4">Amount</th>
+                                        <th class="aurora-text-left aurora-py-3 aurora-px-4">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ordersTable">
+                                    <!-- Orders will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../dist/js/aurora.js"></script>
+    <script>
+        // Initialize Aurora components
+        Aurora.init({
+            mobileNav: true,
+            themeToggle: true,
+            scrollAnimations: true
+        });
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('btcChart').getContext('2d');
+        const btcChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Bitcoin Price (USD)',
+                    data: [],
+                    borderColor: '#6366f1',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.1)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Function to format currency
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        }
+
+        // Function to format date
+        function formatDate(date) {
+            return new Intl.DateTimeFormat('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }).format(date);
+        }
+
+        // Function to generate random orders
+        function generateOrders() {
+            const products = ['Laptop', 'Smartphone', 'Tablet', 'Headphones', 'Smartwatch'];
+            const statuses = [
+                { text: 'Completed', class: 'aurora-bg-green-100 aurora-text-green-800' },
+                { text: 'Pending', class: 'aurora-bg-yellow-100 aurora-text-yellow-800' },
+                { text: 'Processing', class: 'aurora-bg-blue-100 aurora-text-blue-800' }
+            ];
+            const orders = [];
+
+            for (let i = 0; i < 5; i++) {
+                const orderId = Math.floor(Math.random() * 100000);
+                const product = products[Math.floor(Math.random() * products.length)];
+                const amount = Math.floor(Math.random() * 1000) + 100;
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const customer = `Customer ${Math.floor(Math.random() * 1000)}`;
+
+                orders.push(`
+                    <tr class="aurora-border-b">
+                        <td class="aurora-py-3 aurora-px-4">#${orderId}</td>
+                        <td class="aurora-py-3 aurora-px-4">${customer}</td>
+                        <td class="aurora-py-3 aurora-px-4">${product}</td>
+                        <td class="aurora-py-3 aurora-px-4">${formatCurrency(amount)}</td>
+                        <td class="aurora-py-3 aurora-px-4">
+                            <span class="aurora-px-2 aurora-py-1 aurora-rounded-full aurora-text-sm ${status.class}">
+                                ${status.text}
+                            </span>
+                        </td>
+                    </tr>
+                `);
+            }
+
+            return orders.join('');
+        }
+
+        // Function to generate activity feed
+        function generateActivityFeed() {
+            const activities = [
+                { icon: 'fa-user-plus', text: 'New user registered', time: '2 minutes ago' },
+                { icon: 'fa-shopping-bag', text: 'New order received', time: '15 minutes ago' },
+                { icon: 'fa-comment', text: 'New comment on post', time: '1 hour ago' },
+                { icon: 'fa-chart-line', text: 'Bitcoin price updated', time: '2 hours ago' },
+                { icon: 'fa-bell', text: 'System notification', time: '3 hours ago' }
+            ];
+
+            return activities.map(activity => `
+                <div class="aurora-flex aurora-items-center">
+                    <div class="aurora-w-10 aurora-h-10 aurora-rounded-full aurora-bg-accent aurora-flex aurora-items-center aurora-justify-center aurora-mr-3">
+                        <i class="fas ${activity.icon} aurora-text-white"></i>
+                    </div>
+                    <div>
+                        <p class="aurora-font-medium">${activity.text}</p>
+                        <p class="aurora-text-sm aurora-text-secondary">${activity.time}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Function to update dashboard data
+        async function updateDashboard() {
+            try {
+                // Fetch cryptocurrency data
+                const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true');
+                const cryptoData = await cryptoResponse.json();
+
+                // Update crypto prices
+                document.getElementById('btcPrice').textContent = formatCurrency(cryptoData.bitcoin.usd);
+                document.getElementById('ethPrice').textContent = formatCurrency(cryptoData.ethereum.usd);
+
+                // Fetch weather data (using OpenWeatherMap API)
+                try {
+                    const weatherResponse = await fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=ebd480335f761198e03c136a42163506&units=metric');
+                    console.log('Weather API Response Status:', weatherResponse.status);
+                    
+                    if (!weatherResponse.ok) {
+                        throw new Error(`Weather API error: ${weatherResponse.status}`);
+                    }
+                    
+                    const weatherData = await weatherResponse.json();
+                    console.log('Weather Data:', weatherData);
+                    
+                    // Update weather display with more information
+                    const weatherTemp = Math.round(weatherData.main.temp);
+                    const weatherIcon = weatherData.weather[0].icon;
+                    const weatherDesc = weatherData.weather[0].description;
+                    
+                    document.getElementById('weatherTemp').innerHTML = `
+                        <div class="aurora-flex aurora-items-center">
+                            <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="${weatherDesc}" class="aurora-w-8 aurora-h-8 aurora-mr-2">
+                            <span>${weatherTemp}°C</span>
+                        </div>
+                        <div class="aurora-text-sm aurora-text-secondary aurora-capitalize">${weatherDesc}</div>
+                    `;
+                } catch (weatherError) {
+                    console.error('Weather API Error:', weatherError);
+                    document.getElementById('weatherTemp').innerHTML = `
+                        <div class="aurora-text-red-500">
+                            Error loading weather data
+                        </div>
+                        <div class="aurora-text-sm aurora-text-secondary">
+                            Please check console for details
+                        </div>
+                    `;
+                }
+
+                // Fetch exchange rate (using ExchangeRate-API)
+                const exchangeResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                const exchangeData = await exchangeResponse.json();
+                document.getElementById('exchangeRate').textContent = `1 USD = ${exchangeData.rates.EUR.toFixed(2)} EUR`;
+
+                // Update chart data
+                const historicalResponse = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7');
+                const historicalData = await historicalResponse.json();
+                
+                btcChart.data.labels = historicalData.prices.map(price => 
+                    new Date(price[0]).toLocaleDateString()
+                );
+                btcChart.data.datasets[0].data = historicalData.prices.map(price => price[1]);
+                btcChart.update();
+
+                // Update orders table
+                document.getElementById('ordersTable').innerHTML = generateOrders();
+
+                // Update activity feed
+                document.getElementById('activityFeed').innerHTML = generateActivityFeed();
+
+                // Update last update time
+                document.getElementById('lastUpdate').textContent = formatDate(new Date());
+
+            } catch (error) {
+                console.error('Error updating dashboard:', error);
+            }
+        }
+
+        // Initial update
+        updateDashboard();
+
+        // Update every 5 minutes
+        setInterval(updateDashboard, .5 * 60 * 1000);
+    </script>
+</body>
+</html> 

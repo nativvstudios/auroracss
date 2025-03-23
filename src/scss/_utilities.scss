@@ -256,3 +256,53 @@ $z-indices: (
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+// Empty space utilities (like <br> but with variable heights)
+@each $size, $value in $spacing-values {
+  .aurora-gap-y-#{$size} {
+    display: block;
+    width: 100%;
+    height: $value;
+  }
+}
+
+// Responsive empty space utilities
+@include sm {
+  @each $size, $value in $spacing-values {
+    .aurora-gap-y-sm-#{$size} {
+      display: block;
+      width: 100%;
+      height: $value;
+    }
+  }
+}
+
+@include md {
+  @each $size, $value in $spacing-values {
+    .aurora-gap-y-md-#{$size} {
+      display: block;
+      width: 100%;
+      height: $value;
+    }
+  }
+}
+
+@include lg {
+  @each $size, $value in $spacing-values {
+    .aurora-gap-y-lg-#{$size} {
+      display: block;
+      width: 100%;
+      height: $value;
+    }
+  }
+}
+
+@include xl {
+  @each $size, $value in $spacing-values {
+    .aurora-gap-y-xl-#{$size} {
+      display: block;
+      width: 100%;
+      height: $value;
+    }
+  }
+}

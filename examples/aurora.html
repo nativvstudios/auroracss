@@ -6,325 +6,13 @@
   <title>Aurora CSS Framework - Component Demo</title>
   
   <!-- Import Aurora CSS Framework -->
-  <link rel="stylesheet" href="aurora.css">
-<link rel="stylesheet" href="aurora-layoutfix.css">
-
-
-  
-  <!-- Custom styles to enhance the demo -->
-  <style>
-    /* Fix for container sizing */
-    .aurora-container {
-      max-width: 90%;
-      width: 1400px;
-      padding: 0 2rem;
-      margin: 0 auto;
-    }
-
-    /* Fix for grid spacing */
-    :root {
-      --aurora-grid-gap: 2rem;
-    }
-
-    /* Fix for general spacing */
-    .component-section {
-      padding: 4rem 0;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    /* Fix spacing in component demos */
-    .component-demo {
-      margin: 2rem 0;
-    }
-
-    /* Add space after sections */
-    .section-heading {
-      margin-bottom: 2rem;
-      font-size: 2rem;
-      font-weight: 500;
-      color: var(--aurora-accent-color);
-    }
-
-    /* Create space for the fixed navbar */
-    body {
-      padding-top: 80px;
-    }
-
-    /* Fix modal */
-    .aurora-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: var(--aurora-card-color);
-      border-radius: var(--aurora-border-radius);
-      box-shadow: var(--aurora-shadow-lg);
-      z-index: 1000;
-      width: 90%;
-      max-width: 600px;
-      max-height: 80vh;
-      overflow-y: auto;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .aurora-modal.aurora-modal-active {
-      display: block;
-      opacity: 1;
-    }
-
-    .aurora-modal-header {
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .aurora-modal-title {
-      margin: 0;
-      font-size: 1.25rem;
-    }
-
-    .aurora-modal-close {
-      background: none;
-      border: none;
-      color: var(--aurora-text-secondary);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .aurora-modal-body {
-      padding: 1.5rem;
-    }
-
-    .aurora-modal-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      z-index: 999;
-      display: none;
-    }
-
-    .aurora-modal-backdrop.active {
-      display: block;
-    }
-
-    /* Fix navbar */
-    .aurora-navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      margin: 1rem;
-    }
-
-    /* Improve code blocks */
-    .code-block {
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: var(--aurora-border-radius);
-      padding: 1rem;
-      margin: 1rem 0;
-      font-family: monospace;
-      font-size: 0.85rem;
-      overflow-x: auto;
-      border-left: 3px solid var(--aurora-accent-color);
-    }
-
-    /* Better button spacing */
-    .button-group .aurora-btn {
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Improve color scheme display */
-    .color-swatch {
-      height: 100px;
-      border-radius: var(--aurora-border-radius);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: flex-end;
-      padding: 1rem;
-      color: white;
-      font-weight: 500;
-      transition: transform var(--aurora-transition-fast);
-    }
-    
-    .color-swatch:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Fix component navigation */
-    .component-nav {
-      position: sticky;
-      top: 80px;
-      padding: 1rem;
-      border-radius: var(--aurora-border-radius);
-      background-color: var(--aurora-card-color);
-      backdrop-filter: blur(10px);
-    }
-
-    .component-nav ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .component-nav li {
-      margin-bottom: 0.5rem;
-    }
-
-    .component-nav a {
-      display: block;
-      padding: 0.5rem;
-      border-radius: var(--aurora-border-radius);
-      transition: background-color var(--aurora-transition-fast);
-    }
-
-    .component-nav a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Tooltip styles */
-    .aurora-tooltip-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 1010;
-    }
-
-    .aurora-tooltip {
-      position: absolute;
-      background-color: var(--aurora-card-color);
-      color: var(--aurora-text-primary);
-      padding: 0.5rem 1rem;
-      border-radius: var(--aurora-border-radius);
-      font-size: 0.85rem;
-      max-width: 250px;
-      box-shadow: var(--aurora-shadow-md);
-      opacity: 0;
-      transition: opacity 0.2s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .aurora-tooltip.active {
-      opacity: 1;
-    }
-
-    /* Scroll to top button */
-    .aurora-scroll-top {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 40px;
-      height: 40px;
-      background-color: var(--aurora-accent-color);
-      color: #000;
-      border-radius: var(--aurora-border-radius);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 90;
-      transform: translateY(20px);
-      box-shadow: var(--aurora-shadow-md);
-    }
-
-    .aurora-scroll-top.aurora-active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Fix for mobile view */
-    @media (max-width: 768px) {
-      .aurora-container {
-        padding: 0 1rem;
-      }
-
-      .component-section {
-        padding: 2rem 0;
-      }
-
-      .aurora-navbar {
-        margin: 0.5rem;
-      }
-
-      .hero {
-        min-height: 40vh;
-      }
-
-      .hero-title {
-        font-size: 2rem;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-      }
-
-      .component-nav {
-        position: relative;
-        top: 0;
-        margin-bottom: 2rem;
-      }
-    }
-    
-    /* Improved hero section */
-    .hero {
-      min-height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      margin-bottom: 4rem;
-      padding: 2rem 0;
-    }
-    
-    .hero-content {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    
-    .hero-title {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--aurora-accent-color), var(--aurora-secondary-accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    
-    .hero-subtitle {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-bottom: 2rem;
-    }
-
-    /* Showcase card improvements */
-    .showcase-card {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .showcase-card .card-content {
-      flex: 1;
-    }
-  </style>
+  <link rel="stylesheet" href="../dist/css/aurora.css">
 </head>
 <body class="aurora-dark">
   <!-- Grid Lines Background -->
-  <div class="aurora-grid-lines" id="gridLines"></div>
+  <div class="aurora-grid-lines" id="gridLines">
+
+  </div>
   
   <!-- Theme Toggle Button -->
   <div class="aurora-toggle-container">
@@ -367,7 +55,7 @@
           <h3 id="typingDemo" class="aurora-text-accent"></h3>
         </div>
         
-        <div class="aurora-mt-5 button-group">
+        <div class="aurora-mt-5 button-group aurora-justify-center">
           <button class="aurora-btn aurora-btn-primary aurora-btn-lg" data-aurora-modal="welcomeModal">Get Started</button>
           <a href="#components" class="aurora-btn aurora-btn-outline aurora-btn-lg">Explore Components</a>
         </div>
@@ -806,15 +494,50 @@
               .aurora-p-1 { padding: 0.25rem; }
               .aurora-p-2 { padding: 0.5rem; }
             </div>
+
+            <h3 class="aurora-mt-5">Vertical Gap Utilities</h3>
+            <p>Aurora provides utility classes for creating consistent vertical spacing between elements. These gap utilities help maintain visual rhythm and hierarchy in your layouts.</p>
             
+            <div class="code-block aurora-mt-4">
+              /* Basic gap utilities */
+              .aurora-gap-y-1 { height: 0.25rem; }  <!-- Extra small space -->
+              .aurora-gap-y-2 { height: 0.5rem; }   <!-- Small space -->
+              .aurora-gap-y-3 { height: 0.75rem; }  <!-- Medium space -->
+              .aurora-gap-y-4 { height: 1rem; }     <!-- Default space -->
+              .aurora-gap-y-5 { height: 1.5rem; }   <!-- Large space -->
+              .aurora-gap-y-6 { height: 2rem; }     <!-- Extra large space -->
+              
+              /* Responsive variants */
+              .aurora-gap-y-sm-4 { height: 1rem; }  <!-- Space on small screens -->
+              .aurora-gap-y-md-4 { height: 1rem; }  <!-- Space on medium screens -->
+              .aurora-gap-y-lg-4 { height: 1rem; }  <!-- Space on large screens -->
+              .aurora-gap-y-xl-4 { height: 1rem; }  <!-- Space on extra large screens -->
+            </div>
+
+            <div class="component-demo aurora-mt-4">
+              <div class="aurora-card">First Element</div>
+              <div class="aurora-gap-y-2"></div>
+              <div class="aurora-card">Small Gap (0.5rem)</div>
+              <div class="aurora-gap-y-4"></div>
+              <div class="aurora-card">Default Gap (1rem)</div>
+              <div class="aurora-gap-y-6"></div>
+              <div class="aurora-card">Large Gap (2rem)</div>
+            </div>
+
             <div class="component-demo aurora-mt-5">
-              <div class="aurora-flex aurora-justify-between" style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: var(--aurora-border-radius);">
-                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 1</div>
-                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 2</div>
-                <div style="background: var(--aurora-accent-color); padding: 1rem; border-radius: var(--aurora-border-radius);">Flex Item 3</div>
+              <h4>Responsive Example</h4>
+              <div class="aurora-card">First Element</div>
+              <div class="aurora-gap-y-2 aurora-gap-y-md-4 aurora-gap-y-lg-6"></div>
+              <div class="aurora-card">
+                <p>The gap above this element is:</p>
+                <ul>
+                  <li>0.5rem on mobile</li>
+                  <li>1rem on medium screens</li>
+                  <li>2rem on large screens</li>
+                </ul>
               </div>
             </div>
-            
+
             <h3 class="aurora-mt-5">Text Utilities</h3>
             <p>Quickly style your text with Aurora's text utilities.</p>
             
@@ -861,16 +584,13 @@
     </div>
     <div class="aurora-modal-body">
       <p>Thank you for checking out the Aurora CSS Framework!</p>
-      <p class="aurora-mt-3">This modern CSS framework is designed to help you build beautiful, responsive interfaces with minimal effort. The framework includes:</p>
-      <ul class="aurora-mt-2">
-        <li>Glass morphism effects</li>
-        <li>Dark and light mode support</li>
-        <li>Responsive grid system</li>
-        <li>Beautiful animations</li>
-        <li>Interactive components</li>
-      </ul>
+      <p class="aurora-mt-3">Aurora is very much WIP, and will be updated as time goes on. 
+        That being said, it is fully functional and has a lot of features.
+        To get started, check out the documentation below. And click on Get Started to go to the repository.
+      </p>
+      
       <div class="aurora-mt-4">
-        <button class="aurora-btn aurora-btn-primary aurora-modal-close">Get Started</button>
+        <a href="https://github.com/nativvstudios/auroracss"><button class="aurora-btn aurora-btn-primary">Get Started</button></a>
       </div>
     </div>
   </div>
@@ -944,7 +664,7 @@
   <div class="aurora-modal-backdrop"></div>
   
   <!-- Import Aurora JS -->
-  <script src="aurora.js"></script>
+  <script src="../dist/js/aurora.js"></script>
   
   <!-- Initialize Components -->
   <script>
@@ -960,8 +680,13 @@
         },
         tooltips: {
           delay: 200
+        },
+        gridLines: {
+          horizontalLines: 12,
+          verticalLines: 12
         }
       });
+      Aurora.initGridLines();
       
       // Initialize typing animation for the hero
       Aurora.initTyping('typingDemo', [
@@ -1007,7 +732,7 @@
       });
     });
   </script>
-    <script src="aurora-animationfix.js"></script>
+    <script src="../auroracss/dist/js/aurora-animationfix.js"></script>
 
 </body>
 </html>

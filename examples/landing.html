@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Landing Page</title>
+    <link rel="stylesheet" href="../dist/css/aurora.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="aurora-navbar aurora-fixed aurora-w-full aurora-z-50">
+        <div class="aurora-container">
+            <div class="aurora-flex aurora-justify-between aurora-items-center">
+                <div class="aurora-navbar-brand">
+                    <a href="#" class="aurora-text-xl aurora-font-bold">Aurora</a>
+                </div>
+                <div class="aurora-navbar-menu">
+                    <a href="#features" class="aurora-nav-link">Features</a>
+                    <a href="#pricing" class="aurora-nav-link">Pricing</a>
+                    <a href="#testimonials" class="aurora-nav-link">Testimonials</a>
+                    <a href="#contact" class="aurora-nav-link">Contact</a>
+                </div>
+                <div class="aurora-navbar-end">
+                    <button class="aurora-btn aurora-btn-outline aurora-mr-2">Login</button>
+                    <button class="aurora-btn aurora-btn-primary">Sign Up</button>
+                </div>
+                <button class="aurora-navbar-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="aurora-pt-24 aurora-pb-12">
+        <div class="aurora-container">
+            <div class="aurora-row aurora-items-center">
+                <div class="aurora-col-12 aurora-col-lg-6" data-aurora-animate="slide-right">
+                    <h1 class="aurora-text-4xl aurora-font-bold aurora-mb-4">Build Beautiful Websites Faster</h1>
+                    <p class="aurora-text-xl aurora-text-secondary aurora-mb-8">Aurora CSS framework helps you create stunning and responsive websites with minimal effort.</p>
+                    <div class="aurora-flex aurora-gap-4">
+                        <button class="aurora-btn aurora-btn-primary">Get Started</button>
+                        <button class="aurora-btn aurora-btn-outline">Learn More</button>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-lg-6" data-aurora-animate="slide-left">
+                    <img src="https://source.unsplash.com/random/800x600?website" alt="Hero Image" class="aurora-w-full aurora-rounded-lg aurora-shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="aurora-py-12">
+        <div class="aurora-container">
+            <div class="aurora-text-center aurora-mb-12">
+                <h2 class="aurora-text-3xl aurora-font-bold aurora-mb-4">Why Choose Aurora?</h2>
+                <p class="aurora-text-xl aurora-text-secondary">Discover the features that make Aurora special</p>
+            </div>
+            <div class="aurora-row aurora-gap-6">
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="fade">
+                    <div class="aurora-card aurora-text-center aurora-p-6">
+                        <div class="aurora-card-icon aurora-mb-4">
+                            <i class="fas fa-bolt aurora-text-2xl"></i>
+                        </div>
+                        <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Lightning Fast</h3>
+                        <p class="aurora-text-secondary">Optimized for performance and speed</p>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="fade">
+                    <div class="aurora-card aurora-text-center aurora-p-6">
+                        <div class="aurora-card-icon aurora-mb-4">
+                            <i class="fas fa-mobile-alt aurora-text-2xl"></i>
+                        </div>
+                        <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Responsive Design</h3>
+                        <p class="aurora-text-secondary">Looks great on all devices</p>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="fade">
+                    <div class="aurora-card aurora-text-center aurora-p-6">
+                        <div class="aurora-card-icon aurora-mb-4">
+                            <i class="fas fa-code aurora-text-2xl"></i>
+                        </div>
+                        <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Easy to Use</h3>
+                        <p class="aurora-text-secondary">Simple and intuitive API</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="aurora-py-12 aurora-bg-accent">
+        <div class="aurora-container">
+            <div class="aurora-text-center aurora-mb-12">
+                <h2 class="aurora-text-3xl aurora-font-bold aurora-mb-4">Simple Pricing</h2>
+                <p class="aurora-text-xl aurora-text-secondary">Choose the plan that works for you</p>
+            </div>
+            <div class="aurora-row aurora-gap-6">
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="slide-up">
+                    <div class="aurora-card aurora-p-6">
+                        <div class="aurora-text-center">
+                            <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Starter</h3>
+                            <div class="aurora-text-3xl aurora-font-bold aurora-mb-4">$0<span class="aurora-text-sm aurora-font-normal">/month</span></div>
+                        </div>
+                        <ul class="aurora-space-y-4 aurora-mb-6">
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Basic Components
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Community Support
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Basic Documentation
+                            </li>
+                        </ul>
+                        <button class="aurora-btn aurora-btn-outline aurora-w-full">Get Started</button>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="slide-up">
+                    <div class="aurora-card aurora-p-6">
+                        <div class="aurora-text-center">
+                            <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Pro</h3>
+                            <div class="aurora-text-3xl aurora-font-bold aurora-mb-4">$29<span class="aurora-text-sm aurora-font-normal">/month</span></div>
+                        </div>
+                        <ul class="aurora-space-y-4 aurora-mb-6">
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                All Components
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Priority Support
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Advanced Documentation
+                            </li>
+                        </ul>
+                        <button class="aurora-btn aurora-btn-primary aurora-w-full">Get Started</button>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-6 aurora-col-lg-4" data-aurora-animate="slide-up">
+                    <div class="aurora-card aurora-p-6">
+                        <div class="aurora-text-center">
+                            <h3 class="aurora-text-xl aurora-font-bold aurora-mb-2">Enterprise</h3>
+                            <div class="aurora-text-3xl aurora-font-bold aurora-mb-4">$99<span class="aurora-text-sm aurora-font-normal">/month</span></div>
+                        </div>
+                        <ul class="aurora-space-y-4 aurora-mb-6">
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Custom Components
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                24/7 Support
+                            </li>
+                            <li class="aurora-flex aurora-items-center">
+                                <i class="fas fa-check aurora-text-accent aurora-mr-2"></i>
+                                Custom Solutions
+                            </li>
+                        </ul>
+                        <button class="aurora-btn aurora-btn-outline aurora-w-full">Contact Sales</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="aurora-py-12">
+        <div class="aurora-container">
+            <div class="aurora-text-center aurora-mb-12">
+                <h2 class="aurora-text-3xl aurora-font-bold aurora-mb-4">What Our Users Say</h2>
+                <p class="aurora-text-xl aurora-text-secondary">Trusted by developers worldwide</p>
+            </div>
+            <div class="aurora-row aurora-gap-6">
+                <div class="aurora-col-12 aurora-col-md-6" data-aurora-animate="fade">
+                    <div class="aurora-card aurora-p-6">
+                        <p class="aurora-text-secondary aurora-mb-4">"Aurora has completely transformed how I build websites. The framework is intuitive and the components are beautiful."</p>
+                        <div class="aurora-flex aurora-items-center">
+                            <img src="https://source.unsplash.com/random/40x40?portrait" alt="User" class="aurora-w-10 aurora-h-10 aurora-rounded-full aurora-mr-3">
+                            <div>
+                                <p class="aurora-font-medium">Sarah Johnson</p>
+                                <p class="aurora-text-sm aurora-text-secondary">Frontend Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-6" data-aurora-animate="fade">
+                    <div class="aurora-card aurora-p-6">
+                        <p class="aurora-text-secondary aurora-mb-4">"The best CSS framework I've ever used. Clean, modern, and incredibly flexible. Highly recommended!"</p>
+                        <div class="aurora-flex aurora-items-center">
+                            <img src="https://source.unsplash.com/random/40x40?man" alt="User" class="aurora-w-10 aurora-h-10 aurora-rounded-full aurora-mr-3">
+                            <div>
+                                <p class="aurora-font-medium">Michael Chen</p>
+                                <p class="aurora-text-sm aurora-text-secondary">UI Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="aurora-py-12 aurora-bg-accent">
+        <div class="aurora-container">
+            <div class="aurora-text-center aurora-mb-12">
+                <h2 class="aurora-text-3xl aurora-font-bold aurora-mb-4">Get in Touch</h2>
+                <p class="aurora-text-xl aurora-text-secondary">Have questions? We're here to help</p>
+            </div>
+            <div class="aurora-row aurora-justify-center">
+                <div class="aurora-col-12 aurora-col-md-8 aurora-col-lg-6">
+                    <div class="aurora-card aurora-p-6">
+                        <form>
+                            <div class="aurora-form-group aurora-mb-4">
+                                <label class="aurora-label">Name</label>
+                                <input type="text" class="aurora-input aurora-w-full" placeholder="Your name">
+                            </div>
+                            <div class="aurora-form-group aurora-mb-4">
+                                <label class="aurora-label">Email</label>
+                                <input type="email" class="aurora-input aurora-w-full" placeholder="Your email">
+                            </div>
+                            <div class="aurora-form-group aurora-mb-4">
+                                <label class="aurora-label">Message</label>
+                                <textarea class="aurora-textarea aurora-w-full" rows="4" placeholder="Your message"></textarea>
+                            </div>
+                            <button class="aurora-btn aurora-btn-primary aurora-w-full">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="aurora-footer aurora-py-12">
+        <div class="aurora-container">
+            <div class="aurora-row">
+                <div class="aurora-col-12 aurora-col-md-4">
+                    <h3 class="aurora-text-xl aurora-font-bold aurora-mb-4">Aurora</h3>
+                    <p class="aurora-text-secondary">Modern CSS framework for building beautiful and responsive websites.</p>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Quick Links</h4>
+                    <ul class="aurora-space-y-2">
+                        <li><a href="#features" class="aurora-text-secondary hover:aurora-text-accent">Features</a></li>
+                        <li><a href="#pricing" class="aurora-text-secondary hover:aurora-text-accent">Pricing</a></li>
+                        <li><a href="#testimonials" class="aurora-text-secondary hover:aurora-text-accent">Testimonials</a></li>
+                        <li><a href="#contact" class="aurora-text-secondary hover:aurora-text-accent">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="aurora-col-12 aurora-col-md-4">
+                    <h4 class="aurora-text-lg aurora-font-semibold aurora-mb-4">Connect With Us</h4>
+                    <div class="aurora-social-links">
+                        <a href="#" class="aurora-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="aurora-social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="aurora-social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="aurora-border-t aurora-mt-8 aurora-pt-8 aurora-text-center">
+                <p class="aurora-text-secondary">&copy; 2024 Aurora CSS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../dist/js/aurora.js"></script>
+    <script>
+        // Initialize Aurora components
+        Aurora.init({
+            mobileNav: true,
+            themeToggle: true,
+            scrollAnimations: true
+        });
+    </script>
+</body>
+</html> 

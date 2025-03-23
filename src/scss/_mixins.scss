@@ -131,3 +131,19 @@
       @content;
     }
   }
+
+// Empty space mixin
+@mixin space($size: 1rem) {
+  display: block;
+  width: 100%;
+  height: $size;
+  content: "";
+}
+
+// Horizontal space mixin
+@mixin h-space($size: 1rem) {
+  display: inline-block;
+  width: $size;
+  height: 100%;
+  content: "";
+}
