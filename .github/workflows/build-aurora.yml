@@ -43,7 +43,8 @@ jobs:
     - name: Run gulp build with debug
       run: |
         echo "Starting gulp build..."
-        gulp build --verbose
+        mkdir -p dist/css dist/js
+        NODE_DEBUG=gulp gulp build --verbose
         echo "Build completed. Checking dist directory..."
         ls -la dist/css/
         ls -la dist/js/
@@ -52,11 +53,18 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add -f dist/css/*.css dist/js/*.js
+        # Create .gitignore if it doesn't exist
+        touch .gitignore
+        # Ensure node_modules is ignored
+        echo "node_modules/" >> .gitignore
+        # Force add dist directory contents
+        git add -f dist/
         git status
-        if git diff --cached --quiet; then
-          echo "No changes to commit"
-        else
+        # Check specifically for changes in dist directory
+        if [ -n "$(git diff --cached --name-only dist/)" ]; then
+          echo "Changes detected in dist directory"
           git commit -m "Auto-build Aurora framework assets"
           git push origin main
+        else
+          echo "No changes to commit in dist directory"
         fi
