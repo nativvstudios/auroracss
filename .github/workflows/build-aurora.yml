@@ -28,29 +28,35 @@ jobs:
         node-version: '16'
         cache: 'npm'
     
+    - name: Verify source files
+      run: |
+        echo "Checking source directories..."
+        ls -la src/scss/
+        ls -la src/js/
+        
     - name: Install dependencies
       run: npm ci
       
     - name: Install gulp-cli globally
       run: npm install -g gulp-cli
     
-    - name: Run gulp build
-      run: gulp build
-      
-    - name: Verify dist directory
+    - name: Run gulp build with debug
       run: |
-        ls -la dist/
-        echo "Checking for built files..."
+        echo "Starting gulp build..."
+        gulp build --verbose
+        echo "Build completed. Checking dist directory..."
+        ls -la dist/css/
+        ls -la dist/js/
     
     - name: Commit and push if changed
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add -f dist/*
+        git add -f dist/css/*.css dist/js/*.js
         git status
         if git diff --cached --quiet; then
           echo "No changes to commit"
         else
           git commit -m "Auto-build Aurora framework assets"
-          git push origin main --force
+          git push origin main
         fi
