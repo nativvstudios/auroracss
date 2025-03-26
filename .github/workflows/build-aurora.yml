@@ -9,6 +9,7 @@ on:
       - 'gulpfile.js'
       - 'package.json'
       - 'package-lock.json'
+      - 'dist/**'
 
 # Add this permissions block
 permissions:
@@ -35,15 +36,21 @@ jobs:
     
     - name: Run gulp build
       run: gulp build
+      
+    - name: Verify dist directory
+      run: |
+        ls -la dist/
+        echo "Checking for built files..."
     
     - name: Commit and push if changed
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add dist/
-        if git diff --staged --quiet; then
+        git add -f dist/*
+        git status
+        if git diff --cached --quiet; then
           echo "No changes to commit"
         else
           git commit -m "Auto-build Aurora framework assets"
-          git push
+          git push origin main --force
         fi
