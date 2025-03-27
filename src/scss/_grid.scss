@@ -25,8 +25,7 @@
   .aurora-row {
     display: flex;
     flex-wrap: wrap;
-    margin-left: calc(-1 * var(--aurora-grid-gap) / 2);
-    margin-right: calc(-1 * var(--aurora-grid-gap) / 2);
+    margin: 0 -0.5rem;
   }
   
   // Base column
@@ -219,3 +218,9 @@ $grid-line-scale: 0.5;
 }
 
 // ... existing code ...
+
+.aurora-col-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+  padding: 0 0.5rem;
+}

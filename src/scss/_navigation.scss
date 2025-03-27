@@ -25,7 +25,20 @@
     margin: 0.5rem;
     position: fixed;
     width: calc(100% - 1rem);
+    
+    &.aurora-open {
+      &::before {
+
+        z-index: -1;
+      }
+    }
   }
+
+    // Mobile styles
+    @media (max-width: 767px) {
+      max-width: 100%;
+    }
+
 }
 
 // Brand/logo
@@ -371,5 +384,14 @@
   svg {
     position: relative;
     z-index: 1;
+  }
+}
+
+// Add this new wrapper class
+.aurora-navbar-wrapper {
+  height: 0; // Don't take up space when empty
+  
+  @include max-md {
+    height: 65px; // Adjust this value based on your navbar height
   }
 }
