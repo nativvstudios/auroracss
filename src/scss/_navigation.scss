@@ -300,10 +300,6 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: transform $aurora-transition-fast;
   
-  &:hover {
-    transform: rotate(15deg);
-  }
-  
   @include max-sm {
     font-size: 1.25rem;
     padding: 0.4rem;

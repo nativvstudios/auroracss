@@ -1355,9 +1355,6 @@ h6 {
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: transform 0.2s ease;
 }
-.aurora-theme-toggle:hover {
-  transform: rotate(15deg);
-}
 @media (max-width: 575px) {
   .aurora-theme-toggle {
     font-size: 1.25rem;

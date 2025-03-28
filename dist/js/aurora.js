@@ -193,6 +193,11 @@
       if (theme === 'dark') {
         document.body.classList.add(opts.darkThemeClass);
         document.body.classList.remove(opts.lightThemeClass);
+        var icon = document.getElementById('themeToggleIcon');
+        if (icon) {
+          icon.className = 'fa-solid fa-sun';
+        }
+
         // Update CSS variables for dark theme
         document.documentElement.style.setProperty('--aurora-bg-color', '#0f1923');
         document.documentElement.style.setProperty('--aurora-card-color', 'rgba(25, 31, 40, 0.7)');
@@ -201,6 +206,10 @@
       } else {
         document.body.classList.add(opts.lightThemeClass);
         document.body.classList.remove(opts.darkThemeClass);
+        var _icon = document.getElementById('themeToggleIcon');
+        if (_icon) {
+          _icon.className = 'fa-solid fa-moon';
+        }
         // Update CSS variables for light theme
         document.documentElement.style.setProperty('--aurora-bg-color', '#f5f7fa');
         document.documentElement.style.setProperty('--aurora-card-color', 'rgba(245, 245, 245, 0.7)');
