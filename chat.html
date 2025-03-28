@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT Interface</title>
+    <link rel="stylesheet" href="dist/css/aurora.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --chatgpt-dark: #343541;
+            --chatgpt-darker: #202123;
+            --chatgpt-light: #444654;
+            --chatgpt-text: #ECECF1;
+            --chatgpt-text-secondary: #8E8EA0;
+            --chatgpt-border: #4E4F60;
+            --chatgpt-hover: #2A2B32;
+        }
+
+        body {
+            background-color: var(--chatgpt-dark);
+            color: var(--chatgpt-text);
+        }
+
+        .message {
+            position: relative;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--chatgpt-border);
+        }
+
+        .message:nth-child(odd) {
+            background-color: var(--chatgpt-dark);
+        }
+
+        .message:nth-child(even) {
+            background-color: var(--chatgpt-light);
+        }
+
+        .message:last-child {
+            border-bottom: none;
+        }
+
+        .message-content {
+            max-width: 768px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message-avatar.user {
+            background-color: #5436DA;
+            color: white;
+        }
+
+        .message-avatar.assistant {
+            background-color: #10A37F;
+            color: white;
+        }
+
+        .message-text {
+            flex: 1;
+            line-height: 1.6;
+            color: var(--chatgpt-text);
+        }
+
+        .message-text pre {
+            background-color: var(--chatgpt-darker);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border: 1px solid var(--chatgpt-border);
+        }
+
+        .message-text code {
+            font-family: monospace;
+            background-color: var(--chatgpt-darker);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--chatgpt-border);
+        }
+
+        .message-text p {
+            margin-bottom: 1rem;
+        }
+
+        .message-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .message-text ul, .message-text ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .message-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        .message-text li:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar {
+            width: 260px;
+            background-color: var(--chatgpt-darker);
+            border-right: 1px solid var(--chatgpt-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: transparent;
+            color: var(--chatgpt-text);
+            border: 1px solid var(--chatgpt-border);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin: 0.5rem;
+        }
+
+        .new-chat-btn:hover {
+            background-color: var(--chatgpt-hover);
+        }
+
+        .conversation-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: var(--chatgpt-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.25rem 0.5rem;
+        }
+
+        .conversation-item:hover {
+            background-color: var(--chatgpt-hover);
+        }
+
+        .conversation-item.active {
+            background-color: var(--chatgpt-hover);
+        }
+
+        .input-container {
+            max-width: 768px;
+            margin: 0 auto;
+            padding: 1rem;
+            background-color: var(--chatgpt-dark);
+            border-top: 1px solid var(--chatgpt-border);
+        }
+
+        .input-box {
+            position: relative;
+            background-color: var(--chatgpt-light);
+            border-radius: 0.75rem;
+            border: 1px solid var(--chatgpt-border);
+            padding: 0.5rem;
+        }
+
+        .input-box textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--chatgpt-text);
+            resize: none;
+            padding: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .input-box textarea:focus {
+            outline: none;
+        }
+
+        .input-box button {
+            position: absolute;
+            right: 0.5rem;
+            bottom: 0.5rem;
+            background: transparent;
+            border: none;
+            color: var(--chatgpt-text);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .input-box button:hover {
+            background-color: var(--chatgpt-hover);
+        }
+
+        .settings-btn {
+            color: var(--chatgpt-text-secondary);
+            padding: 0.75rem;
+            border-top: 1px solid var(--chatgpt-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .settings-btn:hover {
+            background-color: var(--chatgpt-hover);
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Layout -->
+    <div class="aurora-flex aurora-h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <button class="new-chat-btn">
+                <i class="fas fa-plus aurora-mr-2"></i>New Chat
+            </button>
+            <div class="aurora-flex-1 aurora-overflow-y-auto">
+                <div class="conversation-item active">
+                    <i class="fas fa-comment"></i>
+                    <span>Current Chat</span>
+                </div>
+                <div class="conversation-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Previous Chat 1</span>
+                </div>
+                <div class="conversation-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Previous Chat 2</span>
+                </div>
+                <div class="conversation-item">
+                    <i class="fas fa-comment"></i>
+                    <span>Previous Chat 3</span>
+                </div>
+            </div>
+            <div class="settings-btn">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="aurora-flex-1 aurora-flex aurora-flex-col">
+            <!-- Chat Messages -->
+            <div class="aurora-flex-1 aurora-overflow-y-auto">
+                <!-- User Message -->
+                <div class="message">
+                    <div class="message-content">
+                        <div class="message-avatar user">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="message-text">
+                            <p>Can you help me with my project?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Message -->
+                <div class="message">
+                    <div class="message-content">
+                        <div class="message-avatar assistant">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-text">
+                            <p>Of course! I'd be happy to help you with your project. What kind of project are you working on?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Message -->
+                <div class="message">
+                    <div class="message-content">
+                        <div class="message-avatar user">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="message-text">
+                            <p>I'm building a web application using React and Node.js</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Message -->
+                <div class="message">
+                    <div class="message-content">
+                        <div class="message-avatar assistant">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-text">
+                            <p>Great! React and Node.js is a powerful combination. What specific aspect of your application would you like help with? I can assist with:</p>
+                            <ul>
+                                <li>Frontend architecture and component design</li>
+                                <li>Backend API design and implementation</li>
+                                <li>Database schema and integration</li>
+                                <li>Authentication and authorization</li>
+                                <li>Performance optimization and scaling</li>
+                            </ul>
+                            <p>Just let me know what you'd like to focus on, and I'll provide detailed guidance!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-box">
+                    <textarea 
+                        rows="1" 
+                        placeholder="Send a message..."
+                    ></textarea>
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="aurora-modal" id="settingsModal">
+        <div class="aurora-modal-header">
+            <h3 class="aurora-modal-title">Settings</h3>
+            <button class="aurora-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="aurora-modal-body">
+            <div class="aurora-space-y-4">
+                <div class="aurora-form-group">
+                    <label class="aurora-label">Model</label>
+                    <select class="aurora-select aurora-w-full">
+                        <option>GPT-4 Turbo</option>
+                        <option>GPT-4</option>
+                        <option>GPT-3.5 Turbo</option>
+                    </select>
+                </div>
+                <div class="aurora-form-group">
+                    <label class="aurora-label">Temperature</label>
+                    <input type="range" class="aurora-w-full" min="0" max="1" step="0.1" value="0.7">
+                </div>
+                <div class="aurora-form-group">
+                    <label class="aurora-label">Max Tokens</label>
+                    <input type="number" class="aurora-input aurora-w-full" value="4096">
+                </div>
+                <div class="aurora-form-check">
+                    <input type="checkbox" class="aurora-checkbox" id="streaming">
+                    <label class="aurora-check-label" for="streaming">Enable Streaming</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dist/js/aurora.js"></script>
+    <script>
+        // Initialize Aurora components
+        Aurora.init({
+            mobileNav: true,
+            themeToggle: true,
+            modals: true
+        });
+
+        // Auto-resize textarea
+        const textarea = document.querySelector('textarea');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        // Handle conversation item clicks
+        document.querySelectorAll('.conversation-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.conversation-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html> 
