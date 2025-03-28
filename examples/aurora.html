@@ -15,9 +15,7 @@
   </div>
   
   <!-- Theme Toggle Button -->
-  <div class="aurora-toggle-container">
-    <button class="aurora-theme-toggle" id="themeToggle">🌓</button>
-  </div>
+
   
   <!-- Scroll to Top Button -->
   <div class="aurora-scroll-top">↑</div>
@@ -41,13 +39,16 @@
       <a href="#animations" class="aurora-nav-link">Animations</a>
     </div>
     <div class="aurora-navbar-end">
+
+      <button class="aurora-theme-toggle" id="themeToggle">🌓</button>
+
       <a href="#" class="aurora-btn aurora-btn-sm aurora-btn-primary" data-aurora-tooltip="Documentation is coming soon!" data-aurora-tooltip-position="bottom">Docs</a>
     </div>
   </nav>
   </div>
 
   <!-- Hero Section -->
-  <section class="hero" id="overview" data-aurora-animate="slide-right">
+  <section class="hero" id="overview">
     <div class="aurora-container">
       <div class="hero-content aurora-glass-card">
         <h1 class="hero-title">Aurora CSS Framework</h1>
@@ -671,36 +672,10 @@
   
   <!-- Initialize Components -->
   <script>
+
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize all Aurora components
-      Aurora.init({
-        // Configure components individually
-        themeToggle: {
-          defaultTheme: 'dark'
-        },
-        scrollAnimations: {
-          threshold: 0.2
-        },
-        tooltips: {
-          delay: 200
-        },
-        gridLines: {
-          horizontalLines: 12,
-          verticalLines: 12
-        }
-      });
-      Aurora.initGridLines();
-      
-      // Initialize typing animation for the hero
-      Aurora.initTyping('typingDemo', [
-        'Building beautiful interfaces',
-        'Creating responsive designs',
-        'Crafting seamless experiences',
-        'Developing modern websites'
-      ]);
-      
       // Initialize another typing animation for the example
-      Aurora.initTyping('typingExample', [
+      Aurora.initTyping('typingDemo', [
         'Aurora makes typing animations easy',
         'Just initialize with an element ID',
         'And an array of text strings',
@@ -710,32 +685,90 @@
         eraseSpeed: 40,
         newTextDelay: 1500
       });
-      
-      // Grid lines initialization
+
+      Aurora.initScrollAnimations({
+        threshold: 0.2
+      });
+
+      Aurora.initParallax({
+        speedAttribute: 'data-aurora-depth',
+        defaultSpeed: 0.2,
+        direction: 'normal'
+      });
+
+      Aurora.initThemeToggle({
+        toggleSelector: '#themeToggle, .aurora-theme-toggle',
+        darkThemeClass: '.aurora-dark',
+        lightThemeClass: '.aurora-light',
+      });
       Aurora.initGridLines({
-        horizontalLines: 6,
-        verticalLines: 8
       });
+
+
+      // // Initialize all Aurora components
+      // Aurora.init({
+      //   // Configure components individually
+      //   themeToggle: {
+      //     defaultTheme: 'dark'
+      //   },
+      //   scrollAnimations: {
+      //     threshold: 0.2
+      //   },
+      //   tooltips: {
+      //     delay: 200
+      //   },
+      //   gridLines: {
+      //     horizontalLines: 12,
+      //     verticalLines: 12
+      //   }
+      // });
+      // Aurora.initGridLines();
       
-      // Initialize highlight effects
-      Aurora.initHighlightEffects({
-        setPrimaryColor: 'var(--aurora-accent-color)',
-        setSecondaryColor: 'var(--aurora-secondary-accent)'
-      });
+      // // Initialize typing animation for the hero
+      // Aurora.initTyping('typingDemo', [
+      //   'Building beautiful interfaces',
+      //   'Creating responsive designs',
+      //   'Crafting seamless experiences',
+      //   'Developing modern websites'
+      // ]);
       
-      // Ensure all modals work properly
-      const modalButtons = document.querySelectorAll('[data-aurora-modal]');
-      modalButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const modalId = this.getAttribute('data-aurora-modal');
-          // Manually trigger modal open if needed
-          const modalController = Aurora.initModal();
-          modalController.open(modalId);
-        });
-      });
+      // // Initialize another typing animation for the example
+      // Aurora.initTyping('typingExample', [
+      //   'Aurora makes typing animations easy',
+      //   'Just initialize with an element ID',
+      //   'And an array of text strings',
+      //   'Perfect for landing pages!'
+      // ], {
+      //   typeSpeed: 80,
+      //   eraseSpeed: 40,
+      //   newTextDelay: 1500
+      // });
+      
+      // // Grid lines initialization
+      // Aurora.initGridLines({
+      //   horizontalLines: 6,
+      //   verticalLines: 8
+      // });
+      
+      // // Initialize highlight effects
+      // Aurora.initHighlightEffects({
+      //   setPrimaryColor: 'var(--aurora-accent-color)',
+      //   setSecondaryColor: 'var(--aurora-secondary-accent)'
+      // });
+      
+      // // Ensure all modals work properly
+      // const modalButtons = document.querySelectorAll('[data-aurora-modal]');
+      // modalButtons.forEach(button => {
+      //   button.addEventListener('click', function() {
+      //     const modalId = this.getAttribute('data-aurora-modal');
+      //     // Manually trigger modal open if needed
+      //     const modalController = Aurora.initModal();
+      //     modalController.open(modalId);
+      //   });
+      // });
     });
   </script>
-    <script src="../dist/js/aurora-animationfix.js"></script>
+    <!-- <script src="../dist/js/aurora-animationfix.js"></script> -->
 
 </body>
 </html>

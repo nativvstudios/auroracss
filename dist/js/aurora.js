@@ -1,71 +1,194 @@
-/**
- * Aurora CSS Framework v1.0.0
- * JavaScript Utilities
- * 
- * A lightweight collection of JavaScript utilities to enhance
- * the Aurora CSS Framework with interactive behaviors.
- */
+(function (factory) {
+  typeof define === 'function' && define.amd ? define(factory) :
+  factory();
+})((function () { 'use strict';
 
-(function(global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' 
-    ? module.exports = factory() 
-    : typeof define === 'function' && define.amd 
-      ? define(factory) 
-      : (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Aurora = factory());
-})(this, function() {
-  'use strict';
-  
+  function _arrayLikeToArray(r, a) {
+    (null == a || a > r.length) && (a = r.length);
+    for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+    return n;
+  }
+  function _arrayWithHoles(r) {
+    if (Array.isArray(r)) return r;
+  }
+  function _defineProperty(e, r, t) {
+    return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+      value: t,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    }) : e[r] = t, e;
+  }
+  function _iterableToArrayLimit(r, l) {
+    var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+    if (null != t) {
+      var e,
+        n,
+        i,
+        u,
+        a = [],
+        f = true,
+        o = false;
+      try {
+        if (i = (t = t.call(r)).next, 0 === l) ; else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+      } catch (r) {
+        o = true, n = r;
+      } finally {
+        try {
+          if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+        } finally {
+          if (o) throw n;
+        }
+      }
+      return a;
+    }
+  }
+  function _nonIterableRest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+  }
+  function ownKeys(e, r) {
+    var t = Object.keys(e);
+    if (Object.getOwnPropertySymbols) {
+      var o = Object.getOwnPropertySymbols(e);
+      r && (o = o.filter(function (r) {
+        return Object.getOwnPropertyDescriptor(e, r).enumerable;
+      })), t.push.apply(t, o);
+    }
+    return t;
+  }
+  function _objectSpread2(e) {
+    for (var r = 1; r < arguments.length; r++) {
+      var t = null != arguments[r] ? arguments[r] : {};
+      r % 2 ? ownKeys(Object(t), true).forEach(function (r) {
+        _defineProperty(e, r, t[r]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+        Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+      });
+    }
+    return e;
+  }
+  function _slicedToArray(r, e) {
+    return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+  }
+  function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+      var i = e.call(t, r);
+      if ("object" != typeof i) return i;
+      throw new TypeError("@@toPrimitive must return a primitive value.");
+    }
+    return ("string" === r ? String : Number)(t);
+  }
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : i + "";
+  }
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
+  }
+  function _unsupportedIterableToArray(r, a) {
+    if (r) {
+      if ("string" == typeof r) return _arrayLikeToArray(r, a);
+      var t = {}.toString.call(r).slice(8, -1);
+      return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+    }
+  }
+
   /**
-   * Aurora Framework Main Object
+   * ======================================
+   * MODULE: CORE UTILITIES START
+   * ======================================
    */
-  const Aurora = {};
-  
+
   /**
-   * Helper Functions
+   * Check if object is a DOM element
+   * @param {*} element - Element to check
+   * @returns {boolean} - True if element is a DOM element
    */
   function isElement(element) {
     return element instanceof Element || element instanceof HTMLDocument;
   }
-  
+
+  /**
+   * Get a single DOM element
+   * @param {string|Element} selector - CSS selector or DOM element
+   * @returns {Element} - The DOM element
+   */
   function getElement(selector) {
     if (isElement(selector)) return selector;
     return document.querySelector(selector);
   }
-  
+
+  /**
+   * Get all matching DOM elements as an array
+   * @param {string|Element[]} selector - CSS selector or array of DOM elements
+   * @returns {Element[]} - Array of DOM elements
+   */
   function getAllElements(selector) {
     if (Array.isArray(selector)) return selector.filter(isElement);
     return Array.from(document.querySelectorAll(selector));
   }
-  
+
+  // Add to Aurora object
+  if (typeof Aurora !== 'undefined') {
+    Aurora.isElement = isElement;
+    Aurora.getElement = getElement;
+    Aurora.getAllElements = getAllElements;
+  }
+
   /**
-   * Theme Toggle Functionality
+   * ======================================
+   * MODULE: CORE UTILITIES END
+   * ======================================
    */
-  Aurora.initThemeToggle = function(options = {}) {
-    const defaultOptions = {
+
+  /**
+   * ======================================
+   * MODULE: THEME TOGGLE
+   * ======================================
+   * Purpose: Provides a theme toggle button for the Aurora framework
+   *
+   * Dependencies:
+   * - Core utilities (getAllElements)
+   **/
+
+  function initThemeToggle() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       toggleSelector: '#themeToggle, .aurora-theme-toggle',
       darkThemeClass: 'aurora-dark',
       lightThemeClass: 'aurora-light',
       storageKey: 'aurora-theme-preference',
       defaultTheme: 'dark'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const toggleButtons = getAllElements(opts.toggleSelector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var toggleButtons = getAllElements(opts.toggleSelector);
+
     // Initialize theme based on saved preference or default
-    const savedTheme = localStorage.getItem(opts.storageKey) || opts.defaultTheme;
+    var savedTheme = localStorage.getItem(opts.storageKey) || opts.defaultTheme;
     setTheme(savedTheme);
-    
+
     // Add click event to toggle buttons
-    toggleButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const currentTheme = document.body.classList.contains(opts.darkThemeClass) ? 'dark' : 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    toggleButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        var currentTheme = document.body.classList.contains(opts.darkThemeClass) ? 'dark' : 'light';
+        var newTheme = currentTheme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         localStorage.setItem(opts.storageKey, newTheme);
       });
     });
-    
+
+    /**
+     * Set theme to dark or light mode
+     * @param {string} theme - 'dark' or 'light'
+     */
     function setTheme(theme) {
       if (theme === 'dark') {
         document.body.classList.add(opts.darkThemeClass);
@@ -84,85 +207,93 @@
         document.documentElement.style.setProperty('--aurora-text-primary', '#1a1a1a');
         document.documentElement.style.setProperty('--aurora-text-secondary', 'rgba(26, 26, 26, 0.7)');
       }
-      
+
       // Dispatch theme change event
-      const event = new CustomEvent('aurora:themeChange', { detail: { theme } });
+      var event = new CustomEvent('aurora:themeChange', {
+        detail: {
+          theme: theme
+        }
+      });
       document.dispatchEvent(event);
     }
-    
-    // Expose the setTheme function
-    Aurora.setTheme = setTheme;
-    
     return {
-      setTheme,
-      getTheme: () => document.body.classList.contains(opts.darkThemeClass) ? 'dark' : 'light'
+      setTheme: setTheme,
+      getTheme: function getTheme() {
+        return document.body.classList.contains(opts.darkThemeClass) ? 'dark' : 'light';
+      }
     };
-  };
-  
+  }
+
+  /* MODULE: THEME TOGGLE - END */
+
   /**
-   * Typing Animation
-   */
-  Aurora.initTyping = function(elementId, texts = [], options = {}) {
-    const defaultOptions = {
-        typeSpeed: 100,
-        eraseSpeed: 50,
-        newTextDelay: 2000,
-        cursorChar: '▐'  // Changed from span to simple character
+    * ======================================
+    * MODULE: TYPING ANIMATION START
+    * ======================================
+    * Purpose: Creates a CLI typing animation on a designated element
+    * 
+    * Dependencies: 
+    * - Core utilities (getElement)
+    */
+  function initTyping(elementId) {
+    var texts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    var defaultOptions = {
+      typeSpeed: 100,
+      eraseSpeed: 50,
+      newTextDelay: 2000,
+      cursorChar: '▐' // Changed from span to simple character
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const element = getElement(`#${elementId}`);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var element = getElement("#".concat(elementId));
     if (!element) return;
-    
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    
+    var textIndex = 0;
+    var charIndex = 0;
+    var isDeleting = false;
+
     // Add the cursor directly to the element's content
     element.textContent = opts.cursorChar;
-    
+
+    /**
+     * Type or erase text at the current position
+     */
     function type() {
-        const currentText = texts[textIndex];
-        
-        if (isDeleting) {
-            // Erasing text
-            element.textContent = currentText.substring(0, charIndex - 1) + opts.cursorChar;
-            charIndex--;
-            
-            if (charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                setTimeout(type, opts.newTextDelay / 3);
-            } else {
-                setTimeout(type, opts.eraseSpeed);
-            }
+      var currentText = texts[textIndex];
+      if (isDeleting) {
+        // Erasing text
+        element.textContent = currentText.substring(0, charIndex - 1) + opts.cursorChar;
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          setTimeout(type, opts.newTextDelay / 3);
         } else {
-            // Typing text
-            element.textContent = currentText.substring(0, charIndex + 1) + opts.cursorChar;
-            charIndex++;
-            
-            if (charIndex === currentText.length) {
-                isDeleting = true;
-                setTimeout(type, opts.newTextDelay);
-            } else {
-                setTimeout(type, opts.typeSpeed);
-            }
+          setTimeout(type, opts.eraseSpeed);
         }
+      } else {
+        // Typing text
+        element.textContent = currentText.substring(0, charIndex + 1) + opts.cursorChar;
+        charIndex++;
+        if (charIndex === currentText.length) {
+          isDeleting = true;
+          setTimeout(type, opts.newTextDelay);
+        } else {
+          setTimeout(type, opts.typeSpeed);
+        }
+      }
     }
-    
+
     // Start typing animation
     setTimeout(type, opts.newTextDelay / 3);
-    
     return {
-      restart: function() {
+      restart: function restart() {
         textIndex = 0;
         charIndex = 0;
         isDeleting = false;
         element.textContent = '';
         setTimeout(type, opts.newTextDelay / 3);
       },
-      setText: function(newTexts) {
+      setText: function setText(newTexts) {
         texts = Array.isArray(newTexts) ? newTexts : [newTexts];
         textIndex = 0;
         charIndex = 0;
@@ -171,339 +302,351 @@
         setTimeout(type, opts.newTextDelay / 3);
       }
     };
-  };
-  
+  }
+  /* MODULE: TYPING ANIMATION - END */
+
   /**
-   * Scroll Animations
-   */
-  Aurora.initScrollAnimations = function(options = {}) {
-    const defaultOptions = {
+    * ======================================
+    * MODULE: SCROLL ANIMATIONS
+    * ======================================
+    * Purpose: Provides scroll-triggered animations for elements
+    * 
+    * Dependencies: 
+    * - Core utilities (getAllElements)
+    */
+  function initScrollAnimations() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       selector: '[data-aurora-animate]',
       threshold: 0.2,
       once: true,
       rootMargin: '0px',
       animationClass: 'aurora-animate-running'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const elements = getAllElements(opts.selector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var elements = getAllElements(opts.selector);
     if (!elements.length) return;
-    
-    // Define animation classes if they don't exist in CSS
-    if (!document.querySelector('style#aurora-animations')) {
-      const style = document.createElement('style');
-      style.id = 'aurora-animations';
-      style.textContent = `
-        .aurora-animate-fade {
-          opacity: 0;
-          transition: opacity 0.5s ease;
-        }
-        .aurora-animate-fade.aurora-animate-running {
-          opacity: 1;
-        }
-        .aurora-animate-slide-up {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .aurora-animate-slide-up.aurora-animate-running {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .aurora-animate-slide-left {
-          opacity: 0;
-          transform: translateX(20px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .aurora-animate-slide-left.aurora-animate-running {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        .aurora-animate-slide-right {
-          opacity: 0;
-          transform: translateX(-20px);
-          transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .aurora-animate-slide-right.aurora-animate-running {
-          opacity: 1;
-          transform: translateX(0);
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    // Create intersection observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const element = entry.target;
-            const animation = element.getAttribute('data-aurora-animate');
-            
-            // Add animation class first
-            element.classList.add(`aurora-animate-${animation}`);
-            
-            // Trigger reflow to ensure animation applies
-            void element.offsetWidth;
-            
-            // Then add running class
-            element.classList.add(opts.animationClass);
-            
-            if (opts.once) {
-              observer.unobserve(element);
-            }
-            
-            // Dispatch animation start event
-            const event = new CustomEvent('aurora:animationStart', { 
-              detail: { element, animation } 
-            });
-            document.dispatchEvent(event);
-          } else if (!opts.once) {
-            const element = entry.target;
-            const animation = element.getAttribute('data-aurora-animate');
-            
-            element.classList.remove(opts.animationClass);
-          }
-        });
-      },
-      {
-        threshold: opts.threshold,
-        rootMargin: opts.rootMargin
-      }
-    );
-    
-    // Observe all elements
-    elements.forEach(element => {
-      observer.observe(element);
+
+    // Check if on mobile device for better mobile animations
+    var isMobile = window.innerWidth < 768;
+
+    // Add appropriate animation classes and set will-change
+    elements.forEach(function (element) {
+      var animationType = element.getAttribute('data-aurora-animate');
+      element.classList.add("aurora-animate-".concat(animationType));
+      element.style.willChange = 'opacity, transform';
     });
-    
-    // Function to manually refresh elements (useful for dynamic content)
-    function refresh() {
-      const newElements = getAllElements(opts.selector);
-      
-      newElements.forEach(element => {
-        if (!element.classList.contains(opts.animationClass)) {
-          observer.observe(element);
+
+    // Create intersection observer with mobile-optimized options
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var element = entry.target;
+
+          // Use setTimeout for staggered animation on mobile
+          if (isMobile) {
+            var container = element.closest('section') || element.parentElement;
+            var siblings = container.querySelectorAll('[data-aurora-animate]');
+            var index = Array.from(siblings).indexOf(element);
+            setTimeout(function () {
+              element.classList.add(opts.animationClass);
+            }, Math.min(index * 100, 300));
+          } else {
+            element.classList.add(opts.animationClass);
+          }
+
+          // Save animation state for smoother page transitions
+          if (element.id) {
+            localStorage.setItem("aurora-anim-".concat(element.id), 'animated');
+          }
+          if (opts.once) {
+            observer.unobserve(element);
+          }
+        } else if (!opts.once) {
+          entry.target.classList.remove(opts.animationClass);
         }
       });
-    }
-    
+    }, {
+      threshold: isMobile ? 0.15 : opts.threshold,
+      rootMargin: isMobile ? '0px 0px 50px 0px' : opts.rootMargin
+    });
+
+    // Observe elements, checking for previous animations
+    elements.forEach(function (element) {
+      if (element.id && localStorage.getItem("aurora-anim-".concat(element.id)) === 'animated') {
+        element.classList.add(opts.animationClass);
+        return;
+      }
+      observer.observe(element);
+    });
+
+    // Handle resize events for responsive animations
+    window.addEventListener('resize', function () {
+      var wasMobile = isMobile;
+      var nowMobile = window.innerWidth < 768;
+      if (wasMobile !== nowMobile) {
+        observer.disconnect();
+        elements.forEach(function (element) {
+          if (!element.hasAttribute('data-aurora-persist')) {
+            element.classList.remove(opts.animationClass);
+          }
+          observer.observe(element);
+        });
+      }
+    });
     return {
-      refresh,
-      observer
+      refresh: function refresh() {
+        var newElements = document.querySelectorAll("".concat(opts.selector, ":not(.aurora-animate-initialized)"));
+        newElements.forEach(function (element) {
+          var animationType = element.getAttribute('data-aurora-animate');
+          element.classList.add("aurora-animate-".concat(animationType));
+          element.classList.add('aurora-animate-initialized');
+          element.style.willChange = 'opacity, transform';
+          observer.observe(element);
+        });
+      },
+      reset: function reset() {
+        elements.forEach(function (element) {
+          element.classList.remove(opts.animationClass);
+          observer.observe(element);
+        });
+      },
+      observer: observer
     };
-  };
-  
+  }
+  /* MODULE: SCROLL ANIMATIONS - END */
+
   /**
-   * Parallax Effects
-   */
-  Aurora.initParallax = function(options = {}) {
-    const defaultOptions = {
+     * ======================================
+     * MODULE: PARALLAX EFFECTS
+     * ======================================
+     * Purpose: Creates mouse-movement parallax effects on elements
+     * 
+     * Dependencies: 
+     * - Core utilities (getAllElements)
+     */
+  function initParallax() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       selector: '.aurora-parallax',
       speedAttribute: 'data-aurora-depth',
       defaultSpeed: 0.2,
       direction: 'normal'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const elements = getAllElements(opts.selector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var elements = getAllElements(opts.selector);
     if (!elements.length) return;
-    
+
     // Initialize parallax positions
     updateParallaxPositions(0, 0);
-    
+
     // Add mousemove event to document
     document.addEventListener('mousemove', handleMouseMove);
-    
+
+    /**
+     * Handle mouse movement to calculate parallax effect
+     */
     function handleMouseMove(e) {
-      const mouseX = e.clientX;
-      const mouseY = e.clientY;
-      
+      var mouseX = e.clientX;
+      var mouseY = e.clientY;
+
       // Calculate position relative to center of window
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      
-      const posX = (mouseX - centerX) / centerX;
-      const posY = (mouseY - centerY) / centerY;
-      
+      var centerX = window.innerWidth / 2;
+      var centerY = window.innerHeight / 2;
+      var posX = (mouseX - centerX) / centerX;
+      var posY = (mouseY - centerY) / centerY;
       updateParallaxPositions(posX, posY);
     }
-    
+
+    /**
+     * Update position of all parallax elements
+     */
     function updateParallaxPositions(posX, posY) {
-      elements.forEach(element => {
-        const speed = parseFloat(element.getAttribute(opts.speedAttribute)) || opts.defaultSpeed;
-        const direction = opts.direction === 'reverse' ? -1 : 1;
-        
-        const moveX = posX * speed * 100 * direction;
-        const moveY = posY * speed * 100 * direction;
-        const rotate = posX * speed * 10 * direction;
-        
-        element.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotate}deg)`;
+      elements.forEach(function (element) {
+        var speed = parseFloat(element.getAttribute(opts.speedAttribute)) || opts.defaultSpeed;
+        var direction = opts.direction === 'reverse' ? -1 : 1;
+        var moveX = posX * speed * 100 * direction;
+        var moveY = posY * speed * 100 * direction;
+        var rotate = posX * speed * 10 * direction;
+        element.style.transform = "translate(".concat(moveX, "px, ").concat(moveY, "px) rotate(").concat(rotate, "deg)");
       });
     }
-    
     return {
       updatePositions: updateParallaxPositions,
-      disable: function() {
+      disable: function disable() {
         document.removeEventListener('mousemove', handleMouseMove);
-        elements.forEach(element => {
+        elements.forEach(function (element) {
           element.style.transform = '';
         });
       },
-      enable: function() {
+      enable: function enable() {
         document.addEventListener('mousemove', handleMouseMove);
       }
     };
-  };
-  
+  }
+  /* MODULE: PARALLAX EFFECTS - END */
+
   /**
-   * Mobile Navigation
-   */
-  Aurora.initMobileNav = function(options = {}) {
-    const defaultOptions = {
+    * ======================================
+    * MODULE: MOBILE NAVIGATION
+    * ======================================
+    * Purpose: Implements responsive mobile navigation menu
+    * 
+    * Dependencies: 
+    * - Core utilities (getElement)
+    * 
+    * When modularizing: Create mobile-nav.js with this component
+    */
+  function initMobileNav() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       navbarSelector: '.aurora-navbar',
       toggleSelector: '.aurora-navbar-toggle',
       openClass: 'aurora-open'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const navbar = getElement(opts.navbarSelector);
-    const toggleButton = getElement(opts.toggleSelector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var navbar = getElement(opts.navbarSelector);
+    var toggleButton = getElement(opts.toggleSelector);
     if (!navbar || !toggleButton) return;
-    
-    toggleButton.addEventListener('click', () => {
+    toggleButton.addEventListener('click', function () {
       navbar.classList.toggle(opts.openClass);
-      
+
       // Dispatch toggle event
-      const isOpen = navbar.classList.contains(opts.openClass);
-      const event = new CustomEvent('aurora:navToggle', { 
-        detail: { isOpen } 
+      var isOpen = navbar.classList.contains(opts.openClass);
+      var event = new CustomEvent('aurora:navToggle', {
+        detail: {
+          isOpen: isOpen
+        }
       });
       document.dispatchEvent(event);
     });
-    
+
     // Close mobile menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (navbar.classList.contains(opts.openClass) &&
-          !navbar.contains(e.target) &&
-          e.target !== toggleButton) {
+    document.addEventListener('click', function (e) {
+      if (navbar.classList.contains(opts.openClass) && !navbar.contains(e.target) && e.target !== toggleButton) {
         navbar.classList.remove(opts.openClass);
       }
     });
-    
     return {
-      toggle: function() {
+      toggle: function toggle() {
         navbar.classList.toggle(opts.openClass);
       },
-      open: function() {
+      open: function open() {
         navbar.classList.add(opts.openClass);
       },
-      close: function() {
+      close: function close() {
         navbar.classList.remove(opts.openClass);
       },
-      isOpen: function() {
+      isOpen: function isOpen() {
         return navbar.classList.contains(opts.openClass);
       }
     };
-  };
-  
+  }
+  /* MODULE: MOBILE NAVIGATION - END */
+
   /**
-   * Grid Lines
-   */
-  Aurora.initGridLines = function(options = {}) {
-    const defaultOptions = {
+     * ======================================
+     * MODULE: GRID LINES
+     * ======================================
+     * Purpose: Creates decorative grid lines in the background
+     * 
+     * Dependencies: 
+     * - Core utilities (getElement)
+
+     */
+
+  function initGridLines() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       container: '.aurora-grid-lines',
       horizontalLines: 5,
       verticalLines: 6,
       horizontalClass: 'aurora-horizontal-line',
       verticalClass: 'aurora-vertical-line'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const container = getElement(opts.container);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var container = getElement(opts.container);
     if (!container) return;
-    
+
     // Clear existing lines
     container.innerHTML = '';
-    
+
     // Create horizontal lines
-    for (let i = 0; i < opts.horizontalLines; i++) {
-      const line = document.createElement('div');
+    for (var i = 0; i < opts.horizontalLines; i++) {
+      var line = document.createElement('div');
       line.className = opts.horizontalClass;
-      line.style.top = `${(i + 1) * (100 / (opts.horizontalLines + 1))}%`;
+      line.style.top = "".concat((i + 1) * (100 / (opts.horizontalLines + 1)), "%");
       container.appendChild(line);
     }
-    
+
     // Create vertical lines
-    for (let i = 0; i < opts.verticalLines; i++) {
-      const line = document.createElement('div');
-      line.className = opts.verticalClass;
-      line.style.left = `${(i + 1) * (100 / (opts.verticalLines + 1))}%`;
-      container.appendChild(line);
+    for (var _i = 0; _i < opts.verticalLines; _i++) {
+      var _line = document.createElement('div');
+      _line.className = opts.verticalClass;
+      _line.style.left = "".concat((_i + 1) * (100 / (opts.verticalLines + 1)), "%");
+      container.appendChild(_line);
     }
-    
     return {
-      update: function(newOptions) {
-        const updatedOpts = {...opts, ...newOptions};
-        Aurora.initGridLines(updatedOpts);
+      update: function update(newOptions) {
+        initGridLines(_objectSpread2(_objectSpread2({}, opts), newOptions));
       }
     };
-  };
-  
+  }
+  /* MODULE: GRID LINES - END */
+
   /**
-   * Highlight Effects
-   */
-  Aurora.initHighlightEffects = function(options = {}) {
-    const defaultOptions = {
+     * ======================================
+     * MODULE: HIGHLIGHT EFFECTS
+     * ======================================
+     * Purpose: Creates highlighting effects that follow mouse movement
+     * 
+     * Dependencies: 
+     * - Core utilities (getElement)
+     */
+
+  function initHighlightEffects() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       container: 'body',
       primaryClass: 'aurora-code-highlight',
       secondaryClass: 'aurora-code-highlight-secondary'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const container = getElement(opts.container);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var container = getElement(opts.container);
     if (!container) return;
-    
+
     // Remove existing highlights
-    const existing = container.querySelectorAll(`.${opts.primaryClass}, .${opts.secondaryClass}`);
-    existing.forEach(el => el.remove());
-    
+    var existing = container.querySelectorAll(".".concat(opts.primaryClass, ", .").concat(opts.secondaryClass));
+    existing.forEach(function (el) {
+      return el.remove();
+    });
+
     // Create primary highlight
-    const primaryHighlight = document.createElement('div');
+    var primaryHighlight = document.createElement('div');
     primaryHighlight.className = opts.primaryClass;
     container.appendChild(primaryHighlight);
-    
+
     // Create secondary highlight
-    const secondaryHighlight = document.createElement('div');
+    var secondaryHighlight = document.createElement('div');
     secondaryHighlight.className = opts.secondaryClass;
     container.appendChild(secondaryHighlight);
-    
+
     // Add mousemove event for parallax effect on highlights
-    document.addEventListener('mousemove', (e) => {
-      const moveX = (e.clientX / window.innerWidth) - 0.5;
-      const moveY = (e.clientY / window.innerHeight) - 0.5;
-      
-      primaryHighlight.style.transform = 
-        `translate(${moveX * 30}px, ${moveY * 30}px) rotate(${moveX * 10}deg)`;
-        
-      secondaryHighlight.style.transform = 
-        `translate(${-moveX * 40}px, ${-moveY * 40}px) rotate(${-moveX * 15}deg)`;
+    document.addEventListener('mousemove', function (e) {
+      var moveX = e.clientX / window.innerWidth - 0.5;
+      var moveY = e.clientY / window.innerHeight - 0.5;
+      primaryHighlight.style.transform = "translate(".concat(moveX * 30, "px, ").concat(moveY * 30, "px) rotate(").concat(moveX * 10, "deg)");
+      secondaryHighlight.style.transform = "translate(".concat(-moveX * 40, "px, ").concat(-moveY * 40, "px) rotate(").concat(-moveX * 15, "deg)");
     });
-    
-    const highlightController = {
-      setPrimaryColor: function(color) {
+    var highlightController = {
+      setPrimaryColor: function setPrimaryColor(color) {
         primaryHighlight.style.backgroundColor = color;
       },
-      setSecondaryColor: function(color) {
+      setSecondaryColor: function setSecondaryColor(color) {
         secondaryHighlight.style.backgroundColor = color;
       }
     };
-    
+
     // Set colors if provided in options
     if (options.setPrimaryColor) {
       highlightController.setPrimaryColor(options.setPrimaryColor);
@@ -511,100 +654,100 @@
     if (options.setSecondaryColor) {
       highlightController.setSecondaryColor(options.setSecondaryColor);
     }
-    
     return highlightController;
-  };
-  
+  }
+  /* MODULE: HIGHLIGHT EFFECTS - END */
+
   /**
-   * Scroll to Top Button
-   */
-  Aurora.initScrollToTop = function(options = {}) {
-    const defaultOptions = {
+     * ======================================
+     * MODULE: SCROLL TO TOP
+     * ======================================
+     * Purpose: Implements a smooth scroll-to-top button
+     * 
+     * Dependencies: 
+     * - Core utilities (getElement)
+     */
+
+  function initScrollToTop() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       buttonSelector: '.aurora-scroll-top',
       showAtPixels: 300,
       scrollDuration: 500,
       activeClass: 'aurora-active'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const button = getElement(opts.buttonSelector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var button = getElement(opts.buttonSelector);
     if (!button) return;
-    
+
     // Initially hide the button
     button.classList.remove(opts.activeClass);
-    
+
     // Show button when scrolled down
-    const scrollHandler = () => {
+    var scrollHandler = function scrollHandler() {
       if (window.scrollY > opts.showAtPixels) {
         button.classList.add(opts.activeClass);
       } else {
         button.classList.remove(opts.activeClass);
       }
     };
-    
     window.addEventListener('scroll', scrollHandler);
-    
+
     // Initial check
     scrollHandler();
-    
+
     // Scroll to top with animation
-    button.addEventListener('click', (e) => {
+    button.addEventListener('click', function (e) {
       e.preventDefault();
-      
-      const startPosition = window.scrollY;
-      const startTime = performance.now();
-      
+      var startPosition = window.scrollY;
+      var startTime = performance.now();
       function scrollStep(timestamp) {
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / opts.scrollDuration, 1);
-        
+        var elapsed = timestamp - startTime;
+        var progress = Math.min(elapsed / opts.scrollDuration, 1);
+
         // Easing function: easeInOutCubic
-        const easing = progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-        
-        window.scrollTo(0, startPosition - (startPosition * easing));
-        
+        var easing = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+        window.scrollTo(0, startPosition - startPosition * easing);
         if (progress < 1) {
           window.requestAnimationFrame(scrollStep);
         }
       }
-      
       window.requestAnimationFrame(scrollStep);
     });
-    
     return {
-      scrollToTop: function(duration = opts.scrollDuration) {
-        const startPosition = window.scrollY;
-        const startTime = performance.now();
-        
+      scrollToTop: function scrollToTop() {
+        var duration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : opts.scrollDuration;
+        var startPosition = window.scrollY;
+        var startTime = performance.now();
         function scrollStep(timestamp) {
-          const elapsed = timestamp - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          
+          var elapsed = timestamp - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+
           // Easing function: easeInOutCubic
-          const easing = progress < 0.5
-            ? 4 * progress * progress * progress
-            : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-          
-          window.scrollTo(0, startPosition - (startPosition * easing));
-          
+          var easing = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+          window.scrollTo(0, startPosition - startPosition * easing);
           if (progress < 1) {
             window.requestAnimationFrame(scrollStep);
           }
         }
-        
         window.requestAnimationFrame(scrollStep);
       }
     };
-  };
-  
+  }
+  /* MODULE: SCROLL TO TOP - END */
+
   /**
-   * Modal Dialog
-   */
-  Aurora.initModal = function(options = {}) {
-    const defaultOptions = {
+    * ======================================
+    * MODULE: MODAL DIALOG
+    * ======================================
+    * Purpose: Implements modal dialog functionality
+    * 
+    * Dependencies: 
+    * - Core utilities (getAllElements)
+    */
+  function initModal() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       modalSelector: '.aurora-modal',
       openSelector: '[data-aurora-modal]',
       closeSelector: '.aurora-modal-close',
@@ -612,106 +755,113 @@
       backdropClass: 'aurora-modal-backdrop',
       animation: true
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const modals = getAllElements(opts.modalSelector);
-    const openButtons = getAllElements(opts.openSelector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var modals = getAllElements(opts.modalSelector);
+    var openButtons = getAllElements(opts.openSelector);
     if (!modals.length) return;
-    
+
     // Create backdrop if it doesn't exist
-    let backdrop = document.querySelector(`.${opts.backdropClass}`);
+    var backdrop = document.querySelector(".".concat(opts.backdropClass));
     if (!backdrop) {
       backdrop = document.createElement('div');
       backdrop.className = opts.backdropClass;
       document.body.appendChild(backdrop);
     }
-    
+
     // Add click events to open buttons
-    openButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
+    openButtons.forEach(function (button) {
+      button.addEventListener('click', function (e) {
         e.preventDefault();
-        const modalId = button.getAttribute('data-aurora-modal');
-        const modal = document.getElementById(modalId);
-        
+        var modalId = button.getAttribute('data-aurora-modal');
+        var modal = document.getElementById(modalId);
         if (modal) {
           openModal(modal);
         }
       });
     });
-    
+
     // Add click events to close buttons
-    modals.forEach(modal => {
-      const closeButtons = modal.querySelectorAll(opts.closeSelector);
-      closeButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
+    modals.forEach(function (modal) {
+      var closeButtons = modal.querySelectorAll(opts.closeSelector);
+      closeButtons.forEach(function (button) {
+        button.addEventListener('click', function (e) {
           e.preventDefault();
           closeModal(modal);
         });
       });
     });
-    
+
     // Close modal when clicking backdrop
-    backdrop.addEventListener('click', () => {
-      const activeModal = document.querySelector(`${opts.modalSelector}.${opts.activeClass}`);
+    backdrop.addEventListener('click', function () {
+      var activeModal = document.querySelector("".concat(opts.modalSelector, ".").concat(opts.activeClass));
       if (activeModal) {
         closeModal(activeModal);
       }
     });
-    
+
     // Close modal when pressing Escape key
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
-        const activeModal = document.querySelector(`${opts.modalSelector}.${opts.activeClass}`);
+        var activeModal = document.querySelector("".concat(opts.modalSelector, ".").concat(opts.activeClass));
         if (activeModal) {
           closeModal(activeModal);
         }
       }
     });
-    
+
+    /**
+     * Open a modal dialog
+     * @param {Element} modal - The modal element to open
+     */
     function openModal(modal) {
       // Close any open modals first
-      const activeModal = document.querySelector(`${opts.modalSelector}.${opts.activeClass}`);
+      var activeModal = document.querySelector("".concat(opts.modalSelector, ".").concat(opts.activeClass));
       if (activeModal && activeModal !== modal) {
         closeModal(activeModal, true);
       }
-      
+
       // Show backdrop
       backdrop.classList.add('active');
-      
+
       // Prevent body scrolling
       document.body.style.overflow = 'hidden';
-      
+
       // Show modal with optional animation
       if (opts.animation) {
         modal.style.opacity = '0';
         modal.classList.add(opts.activeClass);
-        
-        setTimeout(() => {
+        setTimeout(function () {
           modal.style.opacity = '1';
         }, 10);
       } else {
         modal.classList.add(opts.activeClass);
       }
-      
+
       // Dispatch open event
-      const event = new CustomEvent('aurora:modalOpen', { 
-        detail: { modal } 
+      var event = new CustomEvent('aurora:modalOpen', {
+        detail: {
+          modal: modal
+        }
       });
       document.dispatchEvent(event);
     }
-    
-    function closeModal(modal, skipBackdrop = false) {
+
+    /**
+     * Close a modal dialog
+     * @param {Element} modal - The modal element to close
+     * @param {boolean} skipBackdrop - Whether to skip hiding the backdrop
+     */
+    function closeModal(modal) {
+      var skipBackdrop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       if (opts.animation) {
         modal.style.opacity = '0';
-        
-        setTimeout(() => {
+        setTimeout(function () {
           modal.classList.remove(opts.activeClass);
           modal.style.opacity = '';
-          
+
           // Hide backdrop if no modals are open and not skipping backdrop
           if (!skipBackdrop) {
-            const activeModals = document.querySelectorAll(`${opts.modalSelector}.${opts.activeClass}`);
+            var activeModals = document.querySelectorAll("".concat(opts.modalSelector, ".").concat(opts.activeClass));
             if (activeModals.length === 0) {
               backdrop.classList.remove('active');
               document.body.style.overflow = '';
@@ -720,51 +870,62 @@
         }, 300);
       } else {
         modal.classList.remove(opts.activeClass);
-        
+
         // Hide backdrop if no modals are open and not skipping backdrop
         if (!skipBackdrop) {
-          const activeModals = document.querySelectorAll(`${opts.modalSelector}.${opts.activeClass}`);
+          var activeModals = document.querySelectorAll("".concat(opts.modalSelector, ".").concat(opts.activeClass));
           if (activeModals.length === 0) {
             backdrop.classList.remove('active');
             document.body.style.overflow = '';
           }
         }
       }
-      
+
       // Dispatch close event
-      const event = new CustomEvent('aurora:modalClose', { 
-        detail: { modal } 
+      var event = new CustomEvent('aurora:modalClose', {
+        detail: {
+          modal: modal
+        }
       });
       document.dispatchEvent(event);
     }
-    
     return {
-      open: function(modalId) {
-        const modal = document.getElementById(modalId);
+      open: function open(modalId) {
+        var modal = document.getElementById(modalId);
         if (modal) {
           openModal(modal);
         }
       },
-      close: function(modalId) {
-        const modal = document.getElementById(modalId);
+      close: function close(modalId) {
+        var modal = document.getElementById(modalId);
         if (modal) {
           closeModal(modal);
         }
       },
-      closeAll: function() {
-        const activeModals = document.querySelectorAll(`${opts.modalSelector}.${opts.activeClass}`);
-        activeModals.forEach(modal => {
+      closeAll: function closeAll() {
+        var activeModals = document.querySelectorAll("".concat(opts.modalSelector, ".").concat(opts.activeClass));
+        activeModals.forEach(function (modal) {
           closeModal(modal);
         });
       }
     };
-  };
-  
+  }
+  /* MODULE: MODAL DIALOG - END */
+
   /**
-   * Tooltips
-   */
-  Aurora.initTooltips = function(options = {}) {
-    const defaultOptions = {
+     * ======================================
+     * MODULE: TOOLTIPS
+     * ======================================
+     * Purpose: Provides tooltip functionality for elements
+     * 
+     * Dependencies: 
+     * - Core utilities (getAllElements)
+     * 
+     * When modularizing: Create tooltips.js with this component
+     */
+  function initTooltips() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var defaultOptions = {
       selector: '[data-aurora-tooltip]',
       position: 'top',
       spacing: 8,
@@ -772,83 +933,83 @@
       delay: 200,
       tooltipClass: 'aurora-tooltip'
     };
-    
-    const opts = {...defaultOptions, ...options};
-    const elements = getAllElements(opts.selector);
-    
+    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
+    var elements = getAllElements(opts.selector);
     if (!elements.length) return;
-    
+
     // Create tooltip container
-    let tooltipContainer = document.querySelector(`.${opts.tooltipClass}-container`);
+    var tooltipContainer = document.querySelector(".".concat(opts.tooltipClass, "-container"));
     if (!tooltipContainer) {
       tooltipContainer = document.createElement('div');
-      tooltipContainer.className = `${opts.tooltipClass}-container`;
+      tooltipContainer.className = "".concat(opts.tooltipClass, "-container");
       document.body.appendChild(tooltipContainer);
     }
-    
+
     // Create tooltip element
-    const tooltip = document.createElement('div');
+    var tooltip = document.createElement('div');
     tooltip.className = opts.tooltipClass;
-    tooltip.classList.add(`${opts.tooltipClass}-${opts.animation}`);
+    tooltip.classList.add("".concat(opts.tooltipClass, "-").concat(opts.animation));
     tooltipContainer.appendChild(tooltip);
-    
+
     // Track mouse movement for follow cursor position
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
+    var mouseX = 0;
+    var mouseY = 0;
+    document.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
+
       // Update tooltip position if follow mode is active
       if (tooltip.classList.contains('follow')) {
         positionTooltipAtCursor();
       }
     });
-    
-    // Position tooltip next to cursor
+
+    /**
+     * Position tooltip next to cursor
+     */
     function positionTooltipAtCursor() {
-      tooltip.style.left = `${mouseX + opts.spacing}px`;
-      tooltip.style.top = `${mouseY + opts.spacing}px`;
+      tooltip.style.left = "".concat(mouseX + opts.spacing, "px");
+      tooltip.style.top = "".concat(mouseY + opts.spacing, "px");
     }
-    
-    // Position tooltip next to element
+
+    /**
+     * Position tooltip next to element
+     * @param {Element} element - The element to position tooltip next to
+     */
     function positionTooltip(element) {
-      const position = element.getAttribute('data-aurora-tooltip-position') || opts.position;
-      const rect = element.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-      
+      var position = element.getAttribute('data-aurora-tooltip-position') || opts.position;
+      var rect = element.getBoundingClientRect();
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+
       // Reset classes
       tooltip.className = opts.tooltipClass;
-      tooltip.classList.add(`${opts.tooltipClass}-${opts.animation}`);
-      tooltip.classList.add(`${opts.tooltipClass}-${position}`);
-      
+      tooltip.classList.add("".concat(opts.tooltipClass, "-").concat(opts.animation));
+      tooltip.classList.add("".concat(opts.tooltipClass, "-").concat(position));
+
       // Show the tooltip to calculate its dimensions
       tooltip.style.visibility = 'hidden';
       tooltip.classList.add('active');
-      
-      const tooltipRect = tooltip.getBoundingClientRect();
-      
+      var tooltipRect = tooltip.getBoundingClientRect();
+
       // Reset visibility
       tooltip.style.visibility = '';
-      
       switch (position) {
         case 'top':
-          tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipRect.width / 2) + scrollLeft}px`;
-          tooltip.style.top = `${rect.top - tooltipRect.height - opts.spacing + scrollTop}px`;
+          tooltip.style.left = "".concat(rect.left + rect.width / 2 - tooltipRect.width / 2 + scrollLeft, "px");
+          tooltip.style.top = "".concat(rect.top - tooltipRect.height - opts.spacing + scrollTop, "px");
           break;
         case 'bottom':
-          tooltip.style.left = `${rect.left + (rect.width / 2) - (tooltipRect.width / 2) + scrollLeft}px`;
-          tooltip.style.top = `${rect.bottom + opts.spacing + scrollTop}px`;
+          tooltip.style.left = "".concat(rect.left + rect.width / 2 - tooltipRect.width / 2 + scrollLeft, "px");
+          tooltip.style.top = "".concat(rect.bottom + opts.spacing + scrollTop, "px");
           break;
         case 'left':
-          tooltip.style.left = `${rect.left - tooltipRect.width - opts.spacing + scrollLeft}px`;
-          tooltip.style.top = `${rect.top + (rect.height / 2) - (tooltipRect.height / 2) + scrollTop}px`;
+          tooltip.style.left = "".concat(rect.left - tooltipRect.width - opts.spacing + scrollLeft, "px");
+          tooltip.style.top = "".concat(rect.top + rect.height / 2 - tooltipRect.height / 2 + scrollTop, "px");
           break;
         case 'right':
-          tooltip.style.left = `${rect.right + opts.spacing + scrollLeft}px`;
-          tooltip.style.top = `${rect.top + (rect.height / 2) - (tooltipRect.height / 2) + scrollTop}px`;
+          tooltip.style.left = "".concat(rect.right + opts.spacing + scrollLeft, "px");
+          tooltip.style.top = "".concat(rect.top + rect.height / 2 - tooltipRect.height / 2 + scrollTop, "px");
           break;
         case 'follow':
           tooltip.classList.add('follow');
@@ -856,112 +1017,215 @@
           break;
       }
     }
-    
+
     // Show/hide tooltip with delay
-    let timerId = null;
-    
-    elements.forEach(element => {
-      element.addEventListener('mouseenter', () => {
+    var timerId = null;
+    elements.forEach(function (element) {
+      element.addEventListener('mouseenter', function () {
         clearTimeout(timerId);
-        
-        timerId = setTimeout(() => {
-          const content = element.getAttribute('data-aurora-tooltip');
+        timerId = setTimeout(function () {
+          var content = element.getAttribute('data-aurora-tooltip');
           tooltip.textContent = content;
           positionTooltip(element);
           tooltip.classList.add('active');
         }, opts.delay);
       });
-      
-      element.addEventListener('mouseleave', () => {
+      element.addEventListener('mouseleave', function () {
         clearTimeout(timerId);
-        
-        timerId = setTimeout(() => {
+        timerId = setTimeout(function () {
           tooltip.classList.remove('active');
           tooltip.classList.remove('follow');
         }, opts.delay);
       });
     });
-    
     return {
-      show: function(element, content = null) {
+      show: function show(element) {
+        var content = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
         if (typeof element === 'string') {
           element = document.querySelector(element);
         }
-        
         if (!element) return;
-        
-        const tooltipContent = content || element.getAttribute('data-aurora-tooltip');
+        var tooltipContent = content || element.getAttribute('data-aurora-tooltip');
         tooltip.textContent = tooltipContent;
         tooltip.classList.add('active');
         positionTooltip(element);
       },
-      hide: function() {
+      hide: function hide() {
         tooltip.classList.remove('active');
         tooltip.classList.remove('follow');
       }
     };
+  }
+  /* MODULE: TOOLTIPS - END */
+
+  var Aurora$1 = {
+    //Attach Utils
+    getElement: getElement,
+    getAllElements: getAllElements,
+    isElement: isElement,
+    //Attach Components
+    initThemeToggle: initThemeToggle,
+    initTyping: initTyping,
+    initScrollAnimations: initScrollAnimations,
+    initParallax: initParallax,
+    initMobileNav: initMobileNav,
+    initGridLines: initGridLines,
+    initHighlightEffects: initHighlightEffects,
+    initScrollToTop: initScrollToTop,
+    initModal: initModal,
+    initTooltips: initTooltips
   };
-  
-  /**
-   * Initialize all Aurora components
-   */
-  Aurora.init = function(options = {}) {
-    const components = options.components || {
-      themeToggle: true,
-      scrollAnimations: true,
-      parallax: true,
-      mobileNav: true,
-      gridLines: true,
-      highlightEffects: true,
-      scrollToTop: true,
-      modals: true,
-      tooltips: true
+  (function (global, factory) {
+    (typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Aurora = factory());
+  })(undefined, function () {
+
+    /**
+     * ======================================
+     * MODULE: INITIALIZATION
+     * ======================================
+     * Purpose: Main initialization function to setup all Aurora components
+     * 
+     * Dependencies: All component modules
+     * 
+     * When modularizing: This becomes the main integration point that imports
+     * individual modules and provides a unified API.
+     */
+    Aurora$1.init = function () {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var components = options.components || {
+        themeToggle: true,
+        scrollAnimations: true,
+        parallax: true,
+        mobileNav: true,
+        gridLines: true,
+        scrollToTop: true,
+        modals: true,
+        tooltips: true
+      };
+
+      // Initialization order matters for some components
+      if (components.scrollToTop) {
+        Aurora$1.initScrollToTop(options.scrollToTop || {});
+      } else {
+        console.log('Scroll to top is not enabled');
+      }
+      if (components.themeToggle) {
+        Aurora$1.initThemeToggle(options.themeToggle || {});
+      } else {
+        console.log('Theme toggle is not enabled');
+      }
+      if (components.mobileNav) {
+        Aurora$1.initMobileNav(options.mobileNav || {});
+      } else {
+        console.log('Mobile nav is not enabled');
+      }
+      if (components.gridLines) {
+        Aurora$1.initGridLines(options.gridLines || {});
+      } else {
+        console.log('Grid lines are not enabled');
+      }
+
+      // if (components.highlightEffects) {
+      //   Aurora.initHighlightEffects(options.highlightEffects || {});
+      // }
+
+      if (components.modals) {
+        Aurora$1.initModal(options.modals || {});
+      } else {
+        console.log('Modals are not enabled');
+      }
+      if (components.tooltips) {
+        Aurora$1.initTooltips(options.tooltips || {});
+      } else {
+        console.log('Tooltips are not enabled');
+      }
+      if (components.parallax) {
+        Aurora$1.initParallax(options.parallax || {});
+      } else {
+        console.log('Parallax is not enabled');
+      }
+      if (components.scrollAnimations) {
+        Aurora$1.initScrollAnimations(options.scrollAnimations || {});
+      } else {
+        console.log('Scroll animations are not enabled');
+      }
+
+      /**
+       * ======================================
+       * MODULE: POLYFILLS & BROWSER FIXES
+       * ======================================
+       * Purpose: Applies compatibility fixes for different browsers and devices
+       * 
+       * When modularizing: Create separate polyfill files:
+       * - ios-fixes.js - iOS specific fixes
+       * - backdrop-filter.js - For browsers that don't support backdrop-filter
+       */
+
+      // Add iOS specific fixes
+      if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('ios-device');
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
+        window.addEventListener('resize', function () {
+          var vh = window.innerHeight * 0.01;
+          document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
+        });
+        var fixedElements = document.querySelectorAll('.aurora-navbar, .aurora-modal, .aurora-scroll-top, .aurora-toggle-container');
+        fixedElements.forEach(function (el) {
+          el.addEventListener('touchstart', function (e) {
+            e.stopPropagation();
+          }, {
+            passive: true
+          });
+        });
+      }
+
+      // Add backdrop-filter fallback
+      if (!CSS.supports('(-webkit-backdrop-filter: blur(10px))') && !CSS.supports('(backdrop-filter: blur(10px))')) {
+        document.documentElement.classList.add('no-backdrop-filter');
+        var glassElements = document.querySelectorAll('.aurora-glass-card, .aurora-navbar, .aurora-modal');
+        glassElements.forEach(function (el) {
+          if (getComputedStyle(el).backgroundColor.includes('rgba')) {
+            var style = getComputedStyle(el);
+            var bgColor = style.backgroundColor;
+            var matches = bgColor.match(/rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)/);
+            if (matches && matches.length === 5) {
+              var _matches = _slicedToArray(matches, 5);
+                _matches[0];
+                var r = _matches[1],
+                g = _matches[2],
+                b = _matches[3],
+                a = _matches[4];
+              var newOpacity = Math.min(1, parseFloat(a) + 0.3);
+              el.style.backgroundColor = "rgba(".concat(r, ", ").concat(g, ", ").concat(b, ", ").concat(newOpacity, ")");
+            }
+          }
+        });
+      }
+      /* MODULE: POLYFILLS & BROWSER FIXES - END */
     };
-    
-    // Initialization order matters for some components
-    if (components.scrollToTop) {
-      Aurora.initScrollToTop(options.scrollToTop || {});
-    }
-    
-    if (components.themeToggle) {
-      Aurora.initThemeToggle(options.themeToggle || {});
-    }
-    
-    if (components.mobileNav) {
-      Aurora.initMobileNav(options.mobileNav || {});
-    }
-    
-    if (components.gridLines) {
-      Aurora.initGridLines(options.gridLines || {});
-    }
-    
-    if (components.highlightEffects) {
-      Aurora.initHighlightEffects(options.highlightEffects || {});
-    }
-    
-    if (components.modals) {
-      Aurora.initModal(options.modals || {});
-    }
-    
-    if (components.tooltips) {
-      Aurora.initTooltips(options.tooltips || {});
-    }
-    
-    if (components.parallax) {
-      Aurora.initParallax(options.parallax || {});
-    }
-    
-    if (components.scrollAnimations) {
-      Aurora.initScrollAnimations(options.scrollAnimations || {});
-    }
-  };
-  
-  // Auto-initialize on DOM ready
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.auroraAutoInit !== false) {
-      Aurora.init();
-    }
+    /* MODULE: INITIALIZATION - END */
+
+    /**
+     * ======================================
+     * MODULE: AUTO-INITIALIZATION
+     * ======================================
+     * Purpose: Automatically initialize Aurora when DOM is ready
+     * 
+     * When modularizing: This should be in the main entry file but 
+     * can be conditionally imported.
+     */
+
+    // Auto-initialize on DOM ready
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.auroraAutoInit !== false) {
+        Aurora$1.init();
+      }
+    });
+    /* MODULE: AUTO-INITIALIZATION - END */
+
+    return Aurora$1;
   });
-  
-  return Aurora;
-});
+
+}));
+//# sourceMappingURL=aurora.js.map

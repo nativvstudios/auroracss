@@ -5,6 +5,7 @@
     "main": "dist/js/aurora.min.js",
     "style": "dist/css/aurora.min.css",
     "sass": "src/scss/main.scss",
+    "type": "module",
     "scripts": {
         "build": "gulp build",
         "dev": "gulp dev"
@@ -19,13 +20,18 @@
     "author": "Your Name",
     "license": "MIT",
     "devDependencies": {
+        "@babel/core": "^7.24.0",
+        "@babel/preset-env": "^7.24.0",
+        "@rollup/plugin-babel": "^6.0.4",
+        "@rollup/plugin-node-resolve": "^15.2.3",
         "autoprefixer": "^10.4.21",
         "cssnano": "^5.1.15",
-        "gulp": "^4.0.2",
+        "gulp": "^5.0.0",
         "gulp-postcss": "^9.0.1",
         "gulp-rename": "^2.0.0",
         "gulp-sass": "^5.1.0",
         "gulp-terser": "^2.1.0",
+        "rollup": "^4.12.0",
         "sass": "^1.86.0"
     },
     "directories": {

@@ -1,10 +1,16 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass')(require('sass'));
-const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
-const rename = require('gulp-rename');
-const terser = require('gulp-terser');
+import gulp from 'gulp';
+import * as dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+import postcss from 'gulp-postcss';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
+import rename from 'gulp-rename';
+import terser from 'gulp-terser';
+import * as rollup from 'rollup';
+import resolve from '@rollup/plugin-node-resolve';
+import babel from '@rollup/plugin-babel';
+
+const sass = gulpSass(dartSass);
 
 // Compile SCSS to CSS
 function buildStyles() {
@@ -17,10 +23,30 @@ function buildStyles() {
     .pipe(gulp.dest('./dist/css'));
 }
 
-// Minify JS
-function buildScripts() {
-  return gulp.src('./src/js/*.js')
-    .pipe(gulp.dest('./dist/js'))
+// Bundle and minify JS using Rollup
+async function buildScripts() {
+  // Create the bundle
+  const bundle = await rollup.rollup({
+    input: './src/js/aurora.js',
+    plugins: [
+      resolve(), // Helps Rollup find external modules
+      babel({
+        babelHelpers: 'bundled',
+        presets: ['@babel/preset-env']
+      })
+    ]
+  });
+
+  // Generate the bundle
+  await bundle.write({
+    file: './dist/js/aurora.js',
+    format: 'umd',
+    name: 'Aurora',
+    sourcemap: true
+  });
+
+  // Create minified version
+  return gulp.src('./dist/js/aurora.js')
     .pipe(terser())
     .pipe(rename({ suffix: '.min' }))
     .pipe(gulp.dest('./dist/js'));
@@ -29,7 +55,7 @@ function buildScripts() {
 // Watch files
 function watchFiles() {
   gulp.watch('./src/scss/**/*.scss', buildStyles);
-  gulp.watch('./src/js/*.js', buildScripts);
+  gulp.watch('./src/js/**/*.js', buildScripts); // Watch all JS files in src/js
 }
 
 // Define complex tasks
@@ -37,9 +63,5 @@ const build = gulp.series(buildStyles, buildScripts);
 const dev = gulp.series(build, watchFiles);
 
 // Export tasks
-exports.buildStyles = buildStyles;
-exports.buildScripts = buildScripts;
-exports.watch = watchFiles;
-exports.build = build;
-exports.dev = dev;
-exports.default = build;
+export { buildStyles, buildScripts, watchFiles, build, dev };
+export default build;
