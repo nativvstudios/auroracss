@@ -13,7 +13,7 @@ import { initScrollAnimations } from './components/scroll-animations.js';
 import { initParallax } from './components/parallax-effects.js';
 import { initMobileNav } from './components/mobile-nav.js';
 import { initGridLines } from './components/grid-lines.js';
-import { initHighlightEffects } from './components/highlight-effects.js';
+// import { initHighlightEffects } from './components/highlight-effects.js';
 import { initScrollToTop } from './components/scroll-to-top.js';
 import { initModal } from './components/modal.js';
 import { initTooltips } from './components/tooltips.js';
@@ -31,7 +31,7 @@ const Aurora = {
   initParallax,
   initMobileNav,
   initGridLines,
-  initHighlightEffects, 
+  // initHighlightEffects, 
   initScrollToTop,
   initModal,
   initTooltips

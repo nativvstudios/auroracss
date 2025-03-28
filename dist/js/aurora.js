@@ -605,70 +605,6 @@
 
   /**
      * ======================================
-     * MODULE: HIGHLIGHT EFFECTS
-     * ======================================
-     * Purpose: Creates highlighting effects that follow mouse movement
-     * 
-     * Dependencies: 
-     * - Core utilities (getElement)
-     */
-
-  function initHighlightEffects() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    var defaultOptions = {
-      container: 'body',
-      primaryClass: 'aurora-code-highlight',
-      secondaryClass: 'aurora-code-highlight-secondary'
-    };
-    var opts = _objectSpread2(_objectSpread2({}, defaultOptions), options);
-    var container = getElement(opts.container);
-    if (!container) return;
-
-    // Remove existing highlights
-    var existing = container.querySelectorAll(".".concat(opts.primaryClass, ", .").concat(opts.secondaryClass));
-    existing.forEach(function (el) {
-      return el.remove();
-    });
-
-    // Create primary highlight
-    var primaryHighlight = document.createElement('div');
-    primaryHighlight.className = opts.primaryClass;
-    container.appendChild(primaryHighlight);
-
-    // Create secondary highlight
-    var secondaryHighlight = document.createElement('div');
-    secondaryHighlight.className = opts.secondaryClass;
-    container.appendChild(secondaryHighlight);
-
-    // Add mousemove event for parallax effect on highlights
-    document.addEventListener('mousemove', function (e) {
-      var moveX = e.clientX / window.innerWidth - 0.5;
-      var moveY = e.clientY / window.innerHeight - 0.5;
-      primaryHighlight.style.transform = "translate(".concat(moveX * 30, "px, ").concat(moveY * 30, "px) rotate(").concat(moveX * 10, "deg)");
-      secondaryHighlight.style.transform = "translate(".concat(-moveX * 40, "px, ").concat(-moveY * 40, "px) rotate(").concat(-moveX * 15, "deg)");
-    });
-    var highlightController = {
-      setPrimaryColor: function setPrimaryColor(color) {
-        primaryHighlight.style.backgroundColor = color;
-      },
-      setSecondaryColor: function setSecondaryColor(color) {
-        secondaryHighlight.style.backgroundColor = color;
-      }
-    };
-
-    // Set colors if provided in options
-    if (options.setPrimaryColor) {
-      highlightController.setPrimaryColor(options.setPrimaryColor);
-    }
-    if (options.setSecondaryColor) {
-      highlightController.setSecondaryColor(options.setSecondaryColor);
-    }
-    return highlightController;
-  }
-  /* MODULE: HIGHLIGHT EFFECTS - END */
-
-  /**
-     * ======================================
      * MODULE: SCROLL TO TOP
      * ======================================
      * Purpose: Implements a smooth scroll-to-top button
@@ -1079,7 +1015,7 @@
     initParallax: initParallax,
     initMobileNav: initMobileNav,
     initGridLines: initGridLines,
-    initHighlightEffects: initHighlightEffects,
+    // initHighlightEffects, 
     initScrollToTop: initScrollToTop,
     initModal: initModal,
     initTooltips: initTooltips
